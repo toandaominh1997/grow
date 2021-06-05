@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:grows/json/chat_json.dart';
 import 'package:grows/theme/colors.dart';
+import 'package:grows/pages/chat_detail_page.dart';
 
 class StatusPage extends StatefulWidget {
   @override

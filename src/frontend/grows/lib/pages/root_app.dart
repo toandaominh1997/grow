@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:grows/theme/colors.dart';
 // import 'package:grows/pages/status_page.dart';
-
+import 'package:grows/pages/chat_page.dart';
 
 
 class RootApp extends StatefulWidget {
@@ -25,7 +25,8 @@ class _RootAppState extends State<RootApp> {
     return IndexedStack(
       index: pageIndex,
       children: [
-        StatusPage(),
+        // StatusPage(),
+        ChatPage(),
       ],
     );
   }
