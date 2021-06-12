@@ -19,7 +19,7 @@ class _StatusPageState extends State<StatusPage> {
     );
   }
 
-  Widget getAppBar() {
+  PreferredSizeWidget getAppBar() {
     return AppBar(
       backgroundColor: bgColor,
       title: Row(
