@@ -8,7 +8,8 @@ class ChatDetailPage extends StatefulWidget {
   final String name;
   final String img;
 
-  const ChatDetailPage({required Key key, this.name, this.img}) : super(key: key);
+  const ChatDetailPage({Key? key, required this.name, required this.img})
+      : super(key: key);
   @override
   _ChatDetailPageState createState() => _ChatDetailPageState();
 }
@@ -24,7 +25,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     );
   }
 
-  Widget getAppBar() {
+//   PreferredSizeWidget getAppBar() {}
+  PreferredSizeWidget getAppBar() {
     return AppBar(
       backgroundColor: greyColor,
       title: Container(
@@ -173,13 +175,17 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
 }
 
 class CustomBubbleChat extends StatelessWidget {
-  final bool? isMe;
-  final String? message;
-  final String? time;
-  final bool? isLast;
+  final bool isMe;
+  final String message;
+  final String time;
+  final bool isLast;
 
   const CustomBubbleChat(
-      {required Key key, this.isMe, this.message, this.time, this.isLast})
+      {Key? key,
+      required this.isMe,
+      required this.message,
+      required this.time,
+      required this.isLast})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

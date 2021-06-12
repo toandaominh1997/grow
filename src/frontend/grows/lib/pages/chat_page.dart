@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:grows/json/chat_json.dart';
 import 'package:grows/theme/colors.dart';
-// import 'package:grows/pages/chat_detail_page.dart';
+import 'package:grows/pages/chat_detail_page.dart';
 
 class ChatPage extends StatefulWidget {
   @override
@@ -103,7 +103,16 @@ class _ChatPageState extends State<ChatPage> {
         Column(
             children: List.generate(chat_data.length, (index) {
           return GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => ChatDetailPage(
+                            name: chat_data[index]['name'],
+                            img: chat_data[index]['img'],
+                          )),
+                );
+              },
               child: Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                 child: Row(
