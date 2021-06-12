@@ -4,7 +4,6 @@ import 'package:grows/theme/colors.dart';
 // import 'package:grows/pages/status_page.dart';
 import 'package:grows/pages/chat_page.dart';
 
-
 class RootApp extends StatefulWidget {
   @override
   _RootAppState createState() => _RootAppState();
