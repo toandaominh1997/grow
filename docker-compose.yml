@@ -20,3 +20,12 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - zookeeper
+  prometheus:
+    image: toandaominh1997/grows_prometheus:latest
+    ports:
+      - 9090:9090
+  grafana:
+    image: toandaominh1997/grows_grafana:latest
+    ports:
+      - 3000:3000
+
