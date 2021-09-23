@@ -40,4 +40,4 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
       - name: Run docker compose
-        run: docker compose up -D
+        run: docker-compose up -d
