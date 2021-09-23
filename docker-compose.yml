@@ -28,4 +28,17 @@ services:
     image: toandaominh1997/grows_grafana:latest
     ports:
       - 3000:3000
-
+  #airflow:
+  #  image: toandaominh1997/grows_airflow:latest
+  #  ports:
+  #    - 8080:8080
+  spark:
+    image: toandaominh1997/grows_spark:latest
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    ports:
+      - '8080:8090'
