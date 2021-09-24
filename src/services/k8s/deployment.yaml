@@ -16,8 +16,7 @@ spec:
     spec:
       containers:
         - name: django
-          image: toandaominh1997/grows_django:latest
-          imagePullPolicy: Never
+          image: gcr.io/vinid-playground/grows/grows_django:latest
           ports:
             - containerPort: 1000
 
