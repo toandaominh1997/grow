@@ -1,44 +1,48 @@
 version: "3.9"
 
 services:
-  django:
-    image: toandaominh1997/grows_django:latest
+  postgres:
+    image: toandaominh1997/grows_postgres:latest
     ports:
-      - 1000:1000
-  zookeeper:
-    image: 'bitnami/zookeeper:latest'
-    ports:
-      - "2181:2181"
-    environment:
-      - ALLOW_ANONYMOUS_LOGIN=yes
-  kafka:
-    image: 'bitnami/kafka:latest'
-    ports:
-      - "9092:9092"
-    environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-      - ALLOW_PLAINTEXT_LISTENER=yes
-    depends_on:
-      - zookeeper
-  prometheus:
-    image: toandaominh1997/grows_prometheus:latest
-    ports:
-      - 9090:9090
-  grafana:
-    image: toandaominh1997/grows_grafana:latest
-    ports:
-      - 3000:3000
-  #airflow:
-  #  image: toandaominh1997/grows_airflow:latest
+      - 5432:5432
+  #django:
+  #  image: toandaominh1997/grows_django:latest
   #  ports:
-  #    - 8080:8080
-  spark:
-    image: toandaominh1997/grows_spark:latest
-    environment:
-      - SPARK_MODE=master
-      - SPARK_RPC_AUTHENTICATION_ENABLED=no
-      - SPARK_RPC_ENCRYPTION_ENABLED=no
-      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
-      - SPARK_SSL_ENABLED=no
-    ports:
-      - '8080:8090'
+  #    - 1000:1000
+  #zookeeper:
+  #  image: 'bitnami/zookeeper:latest'
+  #  ports:
+  #    - "2181:2181"
+  #  environment:
+  #    - ALLOW_ANONYMOUS_LOGIN=yes
+  #kafka:
+  #  image: 'bitnami/kafka:latest'
+  #  ports:
+  #    - "9092:9092"
+  #  environment:
+  #    - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+  #    - ALLOW_PLAINTEXT_LISTENER=yes
+  #  depends_on:
+  #    - zookeeper
+  #prometheus:
+  #  image: toandaominh1997/grows_prometheus:latest
+  #  ports:
+  #    - 9090:9090
+  #grafana:
+  #  image: toandaominh1997/grows_grafana:latest
+  #  ports:
+  #    - 3000:3000
+  ##airflow:
+  ##  image: toandaominh1997/grows_airflow:latest
+  ##  ports:
+  ##    - 8080:8080
+  #spark:
+  #  image: toandaominh1997/grows_spark:latest
+  #  environment:
+  #    - SPARK_MODE=master
+  #    - SPARK_RPC_AUTHENTICATION_ENABLED=no
+  #    - SPARK_RPC_ENCRYPTION_ENABLED=no
+  #    - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+  #    - SPARK_SSL_ENABLED=no
+  #  ports:
+  #    - '8080:8090'
