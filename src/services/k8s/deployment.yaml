@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+  labels:
+    app: django
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+        - name: django
+          image: toandaominh1997/grows_django:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 1000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: django
+  labels:
+    app: django
+spec:
+  selector:
+    app: django
+  ports:
+    - port: 8000
+      protocol: TCP
+      name: django
+  type: LoadBalancer
