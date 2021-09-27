@@ -1,20 +1,27 @@
 version: "3.9"
 
 services:
-  elasticsearch:
-    image: toandaominh1997/grows_elasticsearch:latest
-    environment:
-      - discovery.type=single-node
-    ports:
-      - 9200:9200
-  kibana:
-    image: toandaominh1997/grows_kibana:latest
-    ports:
-      - 5601:5601
-  #postgres:
-  #  image: toandaominh1997/grows_postgres:latest
+  #elasticsearch:
+  #  image: toandaominh1997/grows_elasticsearch:latest
+  #  environment:
+  #    - discovery.type=single-node
   #  ports:
-  #    - 5432:5432
+  #    - 9200:9200
+  #kibana:
+  #  image: toandaominh1997/grows_kibana:latest
+  #  ports:
+  #    - 5601:5601
+  postgres:
+    image: toandaominh1997/grows_postgres:latest
+    ports:
+      - 5432:5432
+
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - PGPORT=5432
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
   #django:
   #  image: toandaominh1997/grows_django:latest
   #  ports:
