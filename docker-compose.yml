@@ -1,39 +1,46 @@
 version: "3.9"
 
 services:
-  elasticsearch:
-    image: toandaominh1997/grows_elasticsearch:latest
-    environment:
-      - discovery.type=single-node
-    ports:
-      - 9200:9200
-  kibana:
-    image: toandaominh1997/grows_kibana:latest
-    ports:
-      - 5601:5601
+  #elasticsearch:
+  #  image: toandaominh1997/grows_elasticsearch:latest
+  #  environment:
+  #    - discovery.type=single-node
+  #  ports:
+  #    - 9200:9200
+  #kibana:
+  #  image: toandaominh1997/grows_kibana:latest
+  #  ports:
+  #    - 5601:5601
   postgres:
+    restart: always
     image: toandaominh1997/grows_postgres:latest
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=pass
       - POSTGRES_DB=postgres
-      - PGPORT=5432
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=grows1234
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
   redis:
+    restart: always
     image: toandaominh1997/grows_redis:latest
     ports:
       - 6379:6379
     volumes:
-      - ./data/redis:/data
-  mongo:
-    image: toandaominh1997/grows_mongo:latest
-    ports:
-      - 27017:27017
-    volumes:
-      - ./data/mongo:/data/db/
+      - redisdata:/data
+  #nginx:
+  #  image: toandaominh1997/grows_nginx:latest
+  #  ports:
+  #    1000:80
+  #  depends_on:
+  #    django
+  #mongo:
+  #  image: toandaominh1997/grows_mongo:latest
+  #  ports:
+  #    - 27017:27017
+  #  volumes:
+  #    - ./data/mongo:/data/db/
   #django:
   #  image: toandaominh1997/grows_django:latest
   #  ports:
@@ -75,3 +82,6 @@ services:
   #    - SPARK_SSL_ENABLED=no
   #  ports:
   #    - '8080:8090'
+volumes:
+  pgdata:
+  redisdata:
