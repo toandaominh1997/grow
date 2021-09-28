@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-5bl+y)(5+hkh1!!4$6^icq+2-yk7+$72+6x(sj11)vd=)o&(f-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
 
 # Application definition
@@ -77,18 +77,18 @@ WSGI_APPLICATION = 'grows_django.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER_NAME': 'user',
-        'PASSWORD': 'grows1234',
-        'HOST': '0.0.0.0',
-        'PORT': 5432,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'postgres',
+    #     'USER_NAME': 'user',
+    #     'PASSWORD': 'grows1234',
+    #     'HOST': '0.0.0.0',
+    #     'PORT': 5432,
+    # }
 }
 
 
