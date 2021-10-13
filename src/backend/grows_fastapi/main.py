@@ -1,8 +1,14 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+
 
 app = FastAPI()
 
+class User(BaseModel):
+    name: str
+    password: Optional[str] = None
 
-@app.get("/items/{item_id}")
-async def read_item(item_id):
-    return {"item_id": item_id}
+@app.get("/user")
+async def user_account(user: User):
+    print('user: ', user)
+    return user
