@@ -11,16 +11,16 @@ services:
   #  image: toandaominh1997/grows_kibana:latest
   #  ports:
   #    - 5601:5601
-  #postgres:
-  #  image: toandaominh1997/grows_postgres:latest
-  #  ports:
-  #    - 5432:5432
-  #  environment:
-  #    - POSTGRES_DB=postgres
-  #    - POSTGRES_USER=user
-  #    - POSTGRES_PASSWORD=grows1234
-  #  volumes:
-  #    - pgdata:/var/lib/postgresql/data
+  postgres:
+    image: toandaominh1997/grows_postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=grows1234
+    volumes:
+      - pgdata:/var/lib/postgresql/data
   #redis:
   #  image: toandaominh1997/grows_redis:latest
   #  ports:
@@ -43,25 +43,25 @@ services:
   #  image: toandaominh1997/grows_django:latest
   #  ports:
   #    - 1000:1000
-  zookeeper:
-    image: docker.io/bitnami/zookeeper:3.7
-    ports:
-      - "2181:2181"
-    volumes:
-      - "zookeeper_data:/bitnami"
-    environment:
-      - ALLOW_ANONYMOUS_LOGIN=yes
-  kafka:
-    image: docker.io/bitnami/kafka:2
-    ports:
-      - "9092:9092"
-    volumes:
-      - "kafka_data:/bitnami"
-    environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-      - ALLOW_PLAINTEXT_LISTENER=yes
-    depends_on:
-      - zookeeper
+  #zookeeper:
+  #  image: bitnami/zookeeper:latest
+  #  ports:
+  #    - "2181:2181"
+  #  volumes:
+  #    - "zookeeper_data:/bitnami"
+  #  environment:
+  #    - ALLOW_ANONYMOUS_LOGIN=yes
+  #kafka:
+  #  image: bitnami/kafka:latest
+  #  ports:
+  #    - "9092:9092"
+  #  volumes:
+  #    - "kafka_data:/bitnami"
+  #  environment:
+  #    - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+  #    - ALLOW_PLAINTEXT_LISTENER=yes
+  #  depends_on:
+  #    - zookeeper
   #prometheus:
   #  image: toandaominh1997/grows_prometheus:latest
   #  ports:
