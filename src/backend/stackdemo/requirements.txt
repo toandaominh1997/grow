@@ -1,0 +1,5 @@
+flask
+redis
+kafka-python
+elasticsearch
+prometheus-client

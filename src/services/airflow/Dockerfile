@@ -1,1 +1,1 @@
-FROM bitnami/airflow:latest
+FROM apache/airflow:latest
