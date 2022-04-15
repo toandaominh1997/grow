@@ -1,7 +1,9 @@
-fastapi
-uvicorn
+fastapi[all]
 redis
 kafka-python
 elasticsearch
 prometheus-client
+psycopg2-binary
+uvicorn
+
 
