@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from typing import List, Optional
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-from db.create import CREATE 
+from db import init_db 
 from routers import account
 
 
@@ -21,17 +21,17 @@ app.include_router(account.router)
 @app.on_event("startup")
 async def startup_event():
     print("Start DB")
-    CREATE().fit()
+    init_db()
 
 
 class User(BaseModel):
-    name: str
+    email: str
     password: Optional[str] = None
 
 @app.get("/")
 async def hello():
     return "Hello"
-@app.get("/user")
+@app.post("/api/signin/")
 async def user_account(user: User):
     print('user: ', user)
-    return user
+    return 1
