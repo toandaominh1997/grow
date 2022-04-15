@@ -1,5 +1,5 @@
 import psycopg2
-conn = psycopg2.connect(database = "postgres", user = "user", password = "password", host = "0.0.0.0", port = "5432")
+conn = psycopg2.connect(database = "database", user = "user", password = "password", host = "postgres", port = "5432")
 cur = conn.cursor()
 def query(query_string, value_dict=None):
     try:
