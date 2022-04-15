@@ -1,4 +1,4 @@
-FROM elasticsearch:7.14.1
+FROM elasticsearch:8.1.2
 
 #ENV ES_PATH_CONF=/etc/elasticsearch
 

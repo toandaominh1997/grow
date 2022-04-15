@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+redis
+kafka-python
+elasticsearch
+prometheus-client
+

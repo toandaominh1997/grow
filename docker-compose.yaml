@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  fastapi:
+    build: "./src/backend/fastapi"
+    ports:
+      - "1234:1234"
+    volumes:
+      - ./src/backend/fastapi:/code
+  postgres:
+    build: "./src/services/postgres"
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis:latest
+  kafka:
+    build: ./src/services/kafka
+  #elasticsearch:
+  #  build: ./src/services/elasticsearch
+  prometheus:
+    build: ./src/services/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./src/services/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+  grafana:
+    build: ./src/services/grafana
+    ports:
+      - "3000:3000"
+

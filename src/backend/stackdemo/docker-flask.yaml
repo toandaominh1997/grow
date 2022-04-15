@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  web:
+    image: toandaominh1997/stackflask:latest
+    ports:
+      - "8000:8000"
+    networks:
+      - appnet
+networks:
+  appnet:
+    driver: overlay

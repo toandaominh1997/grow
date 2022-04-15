@@ -5,4 +5,5 @@ RUN pip install pip -U
 
 RUN pip install -r requirements.txt
 
-CMD ["unicorn", "main:app", "--reload", "--port", "2000"]
+CMD ["unicorn", "main:app", "--reload", "--port", "1234"]
+
