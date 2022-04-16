@@ -1,0 +1,22 @@
+{
+    "os": "Linux-5.15.0-25-generic-x86_64-with-glibc2.35",
+    "python": "3.9.7",
+    "heartbeatAt": "2022-04-16T00:05:42.840370",
+    "startedAt": "2022-04-16T00:05:40.790298",
+    "docker": null,
+    "cpu_count": 4,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/home/weihan/code/Grows/src/mlops/src/train.py",
+    "codePath": "src/mlops/src/train.py",
+    "git": {
+        "remote": "git@github.com:toandaominh1997/Grows.git",
+        "commit": "8199543aaac5716ef215a205a46c9ad5647ffb38"
+    },
+    "email": "toandaominh1997@gmail.com",
+    "root": "/home/weihan/code/Grows",
+    "host": "toandaominh1997",
+    "username": "weihan",
+    "executable": "/home/weihan/development/anaconda3/bin/python"
+}
