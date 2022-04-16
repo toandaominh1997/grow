@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kge
+  labels:
+    app: kge
+  namespace: om
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kge
+  template:
+    metadata:
+      labels:
+        app: kge
+    spec:
+      containers:
+        - name: kge
+          image: grows-fastapi:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 1234
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kge
+  labels:
+    app: kge
+  namespace: om
+spec:
+  selector:
+    app: kge
+  ports:
+    - port: 1234
+      protocol: TCP
+      targetPort: 1234
+  type: ClusterIP
