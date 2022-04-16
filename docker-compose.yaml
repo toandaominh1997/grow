@@ -12,8 +12,10 @@ services:
       - "5432:5432"
   redis:
     image: redis:latest
-  kafka:
-    build: ./src/services/kafka
+  #kafka:
+  #  build: ./src/services/kafka
+  #  ports:
+  #    - "9092:9092"
   #elasticsearch:
   #  build: ./src/services/elasticsearch
   prometheus:
@@ -26,4 +28,3 @@ services:
     build: ./src/services/grafana
     ports:
       - "3000:3000"
-
