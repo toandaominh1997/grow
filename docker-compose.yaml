@@ -12,6 +12,10 @@ services:
       - "5432:5432"
   redis:
     image: redis:latest
+  mongo:
+    build: src/services/mongo
+    ports:
+      - "27017:27017"
   #kafka:
   #  build: ./src/services/kafka
   #  ports:
@@ -31,8 +35,20 @@ services:
   nginx:
     build: ./src/services/nginx
     ports:
-      - "8080:8080"
+      - "11111:11111"
     depends_on:
       - fastapi
       - postgres
       - redis
+  traefik:
+    build: ./src/services/traefik
+    ports:
+      - "80:80"
+      - "22222:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+  #jenkins:
+  #  build: ./src/services/jenkins
+  #  ports:
+  #    - "33333:8080"
+  #    - "50000:50000"
