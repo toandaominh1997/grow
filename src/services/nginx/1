@@ -4,7 +4,8 @@ server {
     proxy_pass http://fastapi:1234;
   }
 
-  location /bn {
-    proxy_pass http://blockchain:2345;
+  location /postgres {
+    proxy_pass http://postgres:5432;
   }
+  
 }

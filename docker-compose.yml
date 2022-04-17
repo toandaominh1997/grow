@@ -1,17 +1,32 @@
 version: "3.9"
 services:
+  blockchain:
+    build: "./src/blockchain"
+    ports:
+      - "2345:2345"
+    volumes:
+      - ./src/blockchain:/code
+
   fastapi:
     build: "./src/backend/fastapi"
     ports:
       - "1234:1234"
     volumes:
       - ./src/backend/fastapi:/code
+    depends_on:
+      - postgres
+      - redis
   postgres:
     build: "./src/services/postgres"
     ports:
       - "5432:5432"
+
   redis:
     image: redis:latest
+  memcached:
+    build: ./src/services/memcached
+    ports:
+      - "11211:11211"
   mongo:
     build: src/services/mongo
     ports:
@@ -38,15 +53,13 @@ services:
       - "11111:11111"
     depends_on:
       - fastapi
-      - postgres
-      - redis
-  traefik:
-    build: ./src/services/traefik
-    ports:
-      - "80:80"
-      - "22222:8080"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+  #traefik:
+  #  build: ./src/services/traefik
+  #  ports:
+  #    - "80:80"
+  #    - "22222:8080"
+  #  volumes:
+  #    - "/var/run/docker.sock:/var/run/docker.sock:ro"
   #jenkins:
   #  build: ./src/services/jenkins
   #  ports:
