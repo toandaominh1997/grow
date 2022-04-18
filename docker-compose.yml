@@ -2,6 +2,7 @@ version: "3.9"
 services:
   blockchain:
     build: "./src/blockchain"
+    restart: on-failure
     ports:
       - "2345:2345"
     volumes:
@@ -9,6 +10,7 @@ services:
 
   fastapi:
     build: "./src/backend/fastapi"
+    restart: on-failure
     ports:
       - "1234:1234"
     volumes:
@@ -49,6 +51,7 @@ services:
       - "3000:3000"
   nginx:
     build: ./src/services/nginx
+    restart: on-failure
     ports:
       - "11111:11111"
     depends_on:
