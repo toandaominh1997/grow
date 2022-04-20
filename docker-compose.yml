@@ -1,43 +1,43 @@
 version: "3.9"
 services:
-  #blockchain:
-  #  build: "./src/blockchain"
-  #  restart: on-failure
-  #  ports:
-  #    - "2345:2345"
-  #  volumes:
-  #    - ./src/blockchain:/code
+  blockchain:
+    build: "./src/blockchain"
+    restart: on-failure
+    ports:
+      - "2345:2345"
+    volumes:
+      - ./src/blockchain:/code
 
-  #fastapi:
-  #  build: "./src/backend/fastapi"
-  #  restart: on-failure
-  #  ports:
-  #    - "1234:1234"
-  #  volumes:
-  #    - ./src/backend/fastapi:/code
-  #  depends_on:
-  #    - postgres
-  #    - redis
-  #postgres:
-  #  build: "./src/services/postgres"
-  #  ports:
-  #    - "5432:5432"
+  fastapi:
+    build: "./src/backend/fastapi"
+    restart: on-failure
+    ports:
+      - "1234:1234"
+    volumes:
+      - ./src/backend/fastapi:/code
+    depends_on:
+      - postgres
+      - redis
+  postgres:
+    build: "./src/services/postgres"
+    ports:
+      - "5432:5432"
 
-  #mariadb:
-  #  build: "./src/services/mariadb"
-  #  ports:
-  #    - "3808:3808"
-  #  restart: "always"
-  #redis:
-  #  image: redis:latest
-  #memcached:
-  #  build: ./src/services/memcached
-  #  ports:
-  #    - "11211:11211"
-  #mongo:
-  #  build: src/services/mongo
-  #  ports:
-  #    - "27017:27017"
+  mariadb:
+    build: "./src/services/mariadb"
+    ports:
+      - "3808:3808"
+    restart: "always"
+  redis:
+    image: redis:latest
+  memcached:
+    build: ./src/services/memcached
+    ports:
+      - "11211:11211"
+  mongo:
+    build: src/services/mongo
+    ports:
+      - "27017:27017"
   ##kafka:
   ##  build: ./src/services/kafka
   ##  ports:
