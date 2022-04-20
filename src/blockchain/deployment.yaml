@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tonne-blockchain
+  labels:
+    app: blockchain
+  namespace: toandaominh1997
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blockchain
+  template:
+    metadata:
+      labels:
+        app: blockchain
+    spec:
+      containers:
+        - name: blockchain-containers
+          image: toandaominh1997/blockchain:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 2345
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 100m
+              memory: 256Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blockchain-service
+  namespace: toandaominh1997
+spec:
+  selector:
+    app: blockchain
+  ports:
+    - port: 2345
+  type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-fastapi
+  namespace: toandaominh1997
+
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: tonne.info
+      http:
+        paths:
+          - path: /app
+            pathType: Prefix
+            backend:
+              service:
+                name: blockchain-service
+                port:
+                  number: 2345
