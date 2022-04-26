@@ -1,11 +1,11 @@
-FROM python:3.8
-
-# upgrade pip
-RUN pip install pip -U
+FROM python:3.9
 
 WORKDIR /code
-ADD . /code
+
+RUN pip install -U pip
+COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
+COPY . /code
 
 CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "1234"]
 

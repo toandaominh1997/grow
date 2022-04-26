@@ -1,0 +1,15 @@
+apiVersion: v1 
+kind: Service 
+metadata:
+  name: fastapi 
+  labels:
+    app: fastapi
+spec:
+  type: ClusterIP
+  ports:
+    - port: 1234
+      targetPort: http
+      protocol: TCP 
+      name: http 
+  selector: 
+    app: fatsapi
