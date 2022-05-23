@@ -2,28 +2,24 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: grow-ingress 
-  annotations: {}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
-  ingressClassName: nginx-example 
   rules:
-    - host: tonne.local 
+    - host: hello-world.info
       http:
         paths:
-          - path: /foo 
-            pathType: Prefix
-            backend:
-              serviceName: nginx
-              servicePort: 80
-              service:
-                name: nginx
-                port:
-                  number: 80
-          - path: /bar
+          # - path: /
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: nginx
+          #       port:
+          #         number: 80
+          - path: /api 
             pathType: Prefix
             backend:
               service:
-                serviceName: fastapi 
-                servicePort: 1234
                 name: fastapi 
                 port:
                   number: 1234

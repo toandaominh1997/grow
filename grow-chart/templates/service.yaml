@@ -1,15 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "grow-chart.fullname" . }}
+  name: nginx
   labels:
-    {{- include "grow-chart.labels" . | nindent 4 }}
+    app: nginx
 spec:
-  type: {{ .Values.service.type }}
+  type: ClusterIP
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+    - port: 80
+      targetPort: 80 
   selector:
-    {{- include "grow-chart.selectorLabels" . | nindent 4 }}
+    app: nginx
