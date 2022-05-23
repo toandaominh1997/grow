@@ -14,12 +14,13 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x63rypto_service.proto\",\n\x0e\x63ryptocurrency\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x07\n\x05_name\"\x80\x01\n\x0cmarket_price\x12\x16\n\tmax_price\x18\x01 \x01(\x02H\x00\x88\x01\x01\x12\x16\n\tmin_price\x18\x02 \x01(\x02H\x01\x88\x01\x01\x12\x16\n\tavg_price\x18\x03 \x01(\x02H\x02\x88\x01\x01\x42\x0c\n\n_max_priceB\x0c\n\n_min_priceB\x0c\n\n_avg_price2:\n\tGExchange\x12-\n\tget_price\x12\x0f.cryptocurrency\x1a\r.market_price\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x63rypto_service.proto\",\n\x0e\x63ryptocurrency\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x07\n\x05_name\"\x80\x01\n\x0cmarket_price\x12\x16\n\tmax_price\x18\x01 \x01(\x02H\x00\x88\x01\x01\x12\x16\n\tmin_price\x18\x02 \x01(\x02H\x01\x88\x01\x01\x12\x16\n\tavg_price\x18\x03 \x01(\x02H\x02\x88\x01\x01\x42\x0c\n\n_max_priceB\x0c\n\n_min_priceB\x0c\n\n_avg_price\"+\n\x0b\x66inal_price\x12\x12\n\x05price\x18\x01 \x01(\x02H\x00\x88\x01\x01\x42\x08\n\x06_price2i\n\tGExchange\x12-\n\tget_price\x12\x0f.cryptocurrency\x1a\r.market_price\"\x00\x12-\n\x0cget_maxprice\x12\r.market_price\x1a\x0c.final_price\"\x00\x62\x06proto3')
 
 
 
 _CRYPTOCURRENCY = DESCRIPTOR.message_types_by_name['cryptocurrency']
 _MARKET_PRICE = DESCRIPTOR.message_types_by_name['market_price']
+_FINAL_PRICE = DESCRIPTOR.message_types_by_name['final_price']
 cryptocurrency = _reflection.GeneratedProtocolMessageType('cryptocurrency', (_message.Message,), {
   'DESCRIPTOR' : _CRYPTOCURRENCY,
   '__module__' : 'crypto_service_pb2'
@@ -34,6 +35,13 @@ market_price = _reflection.GeneratedProtocolMessageType('market_price', (_messag
   })
 _sym_db.RegisterMessage(market_price)
 
+final_price = _reflection.GeneratedProtocolMessageType('final_price', (_message.Message,), {
+  'DESCRIPTOR' : _FINAL_PRICE,
+  '__module__' : 'crypto_service_pb2'
+  # @@protoc_insertion_point(class_scope:final_price)
+  })
+_sym_db.RegisterMessage(final_price)
+
 _GEXCHANGE = DESCRIPTOR.services_by_name['GExchange']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
@@ -42,6 +50,8 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _CRYPTOCURRENCY._serialized_end=68
   _MARKET_PRICE._serialized_start=71
   _MARKET_PRICE._serialized_end=199
-  _GEXCHANGE._serialized_start=201
-  _GEXCHANGE._serialized_end=259
+  _FINAL_PRICE._serialized_start=201
+  _FINAL_PRICE._serialized_end=244
+  _GEXCHANGE._serialized_start=246
+  _GEXCHANGE._serialized_end=351
 # @@protoc_insertion_point(module_scope)
