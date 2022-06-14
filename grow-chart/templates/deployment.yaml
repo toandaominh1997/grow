@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "grow-chart.fullname" . }}
+  namespace: ingress-nginx
   labels:
     {{- include "grow-chart.labels" . | nindent 4 }}
 spec:
