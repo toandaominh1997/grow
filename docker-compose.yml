@@ -1,12 +1,12 @@
 version: "3.9"
 services:
-  blockchain:
-    build: "./src/blockchain"
-    restart: on-failure
-    ports:
-      - "2345:2345"
-    volumes:
-      - ./src/blockchain:/code
+  #blockchain:
+  #  build: "./src/blockchain"
+  #  restart: on-failure
+  #  ports:
+  #    - "2345:2345"
+  #  volumes:
+  #    - ./src/blockchain:/code
 
   fastapi:
     build: "./src/backend/fastapi"
@@ -19,74 +19,77 @@ services:
       - postgres
       - redis
   postgres:
-    build: "./src/services/postgres"
+    build: "./services/postgres"
     ports:
       - "5432:5432"
 
-  mariadb:
-    build: "./src/services/mariadb"
-    ports:
-      - "3808:3808"
-    restart: "always"
+  #mariadb:
+  #  build: "./services/mariadb"
+  #  ports:
+  #    - "3808:3808"
+  #  restart: "always"
   redis:
     image: redis:latest
-  memcached:
-    build: ./src/services/memcached
-    ports:
-      - "11211:11211"
-  mongo:
-    build: src/services/mongo
-    ports:
-      - "27017:27017"
+  #memcached:
+  #  build: ./services/memcached
+  #  ports:
+  #    - "11211:11211"
+  #mongo:
+  #  build: src/services/mongo
+  #  ports:
+  #    - "27017:27017"
   ##kafka:
-  ##  build: ./src/services/kafka
+  ##  build: ./services/kafka
   ##  ports:
   ##    - "9092:9092"
-  ##elasticsearch:
-  ##  build: ./src/services/elasticsearch
+  #elasticsearch:
+  #  build: ./services/elasticsearch
+  #  ports:
+  #    - "9200:9200"
+  #    - "9300:9300"
   #prometheus:
-  #  build: ./src/services/prometheus
+  #  build: ./services/prometheus
   #  ports:
   #    - "9090:9090"
   #  volumes:
-  #    - ./src/services/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+  #    - ./services/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
   #grafana:
-  #  build: ./src/services/grafana
+  #  build: ./services/grafana
   #  ports:
   #    - "3000:3000"
   #nginx:
-  #  build: ./src/services/nginx
+  #  build: ./services/nginx
   #  restart: on-failure
   #  ports:
   #    - "11111:11111"
   #  depends_on:
   #    - fastapi
   ##traefik:
-  ##  build: ./src/services/traefik
+  ##  build: ./services/traefik
   ##  ports:
   ##    - "80:80"
   ##    - "22222:8080"
   ##  volumes:
   ##    - "/var/run/docker.sock:/var/run/docker.sock:ro"
   ##jenkins:
-  ##  build: ./src/services/jenkins
+  ##  build: ./services/jenkins
   ##  ports:
   ##    - "33333:8080"
   ##    - "50000:50000"
   ##
-  minio:
-    image: docker.io/bitnami/minio:latest
-    restart: always
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    #volumes:
-    #  - "minio_data:/data"
-    environment:
-      - MINIO_ROOT_USER=minio
-      - MINIO_ROOT_PASSWORD=minio
-      - MINIO_SERVER_ACCESS_KEY=minio
-      - MINIO_SERVER_SECRET_KEY=minio
+  #minio:
+  #  image: docker.io/bitnami/minio:latest
+  #  restart: always
+  #  ports:
+  #    - "9000:9000"
+  #    - "9001:9001"
+  #  #volumes:
+  #  #  - "minio_data:/data"
+  #  environment:
+  #    - MINIO_ROOT_USER=minio
+  #    - MINIO_ROOT_PASSWORD=minio
+  #    - MINIO_SERVER_ACCESS_KEY=minio
+  #    - MINIO_SERVER_SECRET_KEY=minio
 #volumes:
 #  minio_data:
 #    driver: local
