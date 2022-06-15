@@ -2,10 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
+  namespace: ingress-nginx
   labels: 
     app: redis 
 spec:
-  replicas: 2
+  replicas: 1 
   selector:
     matchLabels:
       app: redis  
