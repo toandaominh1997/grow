@@ -16,6 +16,7 @@ spec:
       containers:
       - name: fastapi
         image: toandaominh1997/grow-fastapi:latest
+        imagePullPolicy: Always 
         ports:
         - containerPort: 1234
 
