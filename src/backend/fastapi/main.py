@@ -15,7 +15,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# app.include_router(account.router)
+app.include_router(account.router)
 
 
 # @app.on_event("startup")

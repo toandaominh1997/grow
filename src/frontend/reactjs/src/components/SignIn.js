@@ -33,7 +33,7 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
-const URL_BASE = "http://localhost:1234";
+const URL_BASE = "toandaominh1997.xyz";
 
 class SignIn extends Component {
 	constructor(props) {
