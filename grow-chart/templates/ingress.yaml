@@ -1,40 +1,14 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: test-ingress
-  annotations:
-   nginx.ingress.kubernetes.io/rewrite-target: /
+  name: kong-ingress
 spec:
-  ingressClassName: nginx
+  ingressClassName: kong
   rules:
     - host: toandaominh1997.xyz
       http:
         paths:
           - path: "/"
-            pathType: Prefix
-            backend:
-              service:
-                name: fastapi-server-service
-                port:
-                  number: 80
-          - path: "/httpd"
-            pathType: Prefix
-            backend:
-              service:
-                name: web-server-service
-                port:
-                  number: 80
-          - path: "/redis"
-            pathType: Prefix
-            backend:
-              service:
-                name: my-redis-master
-                port:
-                  number: 6379
-    - host: test.toandaominh1997.xyz
-      http:
-        paths:
-          - path: "/test/"
             pathType: Prefix
             backend:
               service:
