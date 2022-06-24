@@ -27,7 +27,7 @@ client = Minio(
     "0.0.0.0:9000",
     access_key="adminminio",
     secret_key="adminminio",
-    secure=False
+    secure=false
 )
 
 count_interator = Counter('count_inference', 'Description of counter')
