@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message iris_param {
+  optional float sl = 1;
+  optional float sw = 2;
+  optional float pl = 3;
+  optional float pw = 4;
+}
+message iris_output{
+  optional float value = 1;
+}
+
+service IrisModel{
+  rpc predict_output (iris_param) returns (iris_output) {};
+}

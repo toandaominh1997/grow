@@ -1,2 +1,0 @@
-print('Start research assistant')
-
