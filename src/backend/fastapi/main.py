@@ -2,8 +2,8 @@ from fastapi import FastAPI
 from typing import List, Optional
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-# from db import init_db 
-# from routers import account
+from db import init_db
+from routers import account
 
 
 app = FastAPI()
@@ -18,10 +18,10 @@ app.add_middleware(
 app.include_router(account.router)
 
 
-# @app.on_event("startup")
-# async def startup_event():
-#     print("Start DB")
-#     init_db()
+@app.on_event("startup")
+async def startup_event():
+    print("Start DB")
+    init_db()
 
 
 class User(BaseModel):

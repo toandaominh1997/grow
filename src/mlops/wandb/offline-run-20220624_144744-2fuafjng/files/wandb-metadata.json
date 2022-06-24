@@ -1,0 +1,22 @@
+{
+    "os": "Linux-5.18.4-051804-generic-x86_64-with-glibc2.35",
+    "python": "3.9.7",
+    "heartbeatAt": "2022-06-24T07:47:45.522377",
+    "startedAt": "2022-06-24T07:47:44.038294",
+    "docker": null,
+    "cpu_count": 4,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/home/tonne/code/grow/src/mlops/src/train.py",
+    "codePath": "src/mlops/src/train.py",
+    "git": {
+        "remote": "git@github.com:toandaominh1997/grow.git",
+        "commit": "36a16ebf04b5ec680fc22f8d5a5d3440a4ec392d"
+    },
+    "email": "toandaominh1997@gmail.com",
+    "root": "/home/tonne/code/grow",
+    "host": "henry",
+    "username": "tonne",
+    "executable": "/home/tonne/development/anaconda3/bin/python"
+}

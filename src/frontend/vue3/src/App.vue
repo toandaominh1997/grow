@@ -16,7 +16,6 @@ import TheWelcome from './components/TheWelcome.vue'
     <TheWelcome />
   </main>
 </template>
-
 <style>
 @import './assets/base.css';
 
