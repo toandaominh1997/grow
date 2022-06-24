@@ -13,28 +13,29 @@ services:
   #    - "2345:2345"
   #  volumes:
   #    - ./src/blockchain:/code
-  # fastapi:
-  #   build: "./src/backend/fastapi"
-  #   restart: on-failure
-  #   ports:
-  #     - "1234:1234"
-  #   volumes:
-  #     - ./src/backend/fastapi:/code
-  #   depends_on:
-  #     - postgres
-  #     - redis
-  # postgres:
-  #   build: "./services/postgres"
-  #   ports:
-  #     - "5432:5432"
-  #
+  fastapi:
+    build: "./src/backend/fastapi"
+    restart: on-failure
+    ports:
+      - "1234:1234"
+    volumes:
+      - ./src/backend/fastapi:/code
+    depends_on:
+      - postgres
+      - redis
+  postgres:
+    build: "./services/postgres"
+    restart: on-failure
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:latest
   # #mariadb:
   # #  build: "./services/mariadb"
   # #  ports:
   # #    - "3808:3808"
   # #  restart: "always"
-  # redis:
-  #   image: redis:latest
   # memcached:
   #  build: ./services/memcached
   #  ports:
@@ -50,8 +51,11 @@ services:
   #    - "9300:9300"
   flaskapp:
     build: ./src/backend/prometheus
+    restart: on-failure
     ports:
       - "8000:8000"
+    depends_on:
+      - prometheus
 
   prometheus:
     build: ./services/prometheus
@@ -83,38 +87,38 @@ services:
   #    - "33333:8080"
   #    - "50000:50000"
   #
-  # minio:
-  #   image: minio/minio:latest
-  #   restart: always
-  #   ports:
-  #    - "9000:9000"
-  #    - "9001:9001"
-  #   volumes:
-  #     - "minio_data:/data"
-  #   environment:
-  #     - MINIO_ROOT_USER=adminminio
-  #     - MINIO_ROOT_PASSWORD=adminminio
-  #   command: server /data --address 0.0.0.0:9000 --console-address ":9001"
-  # kafka:
-  #   build: bitnami/kafka:latest
-  #   restart: always
-  #   ports:
-  #     - "9092:9092"
-  #   environment:
-  #     - KAFKA_BROKER_ID=1
-  #     - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
-  #     - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
-  #     - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-  #     - ALLOW_PLAINTEXT_LISTENER=yes
-  #   depends_on:
-  #     - zookeeper
-  # zookeeper:
-  #   image: docker.io/bitnami/zookeeper:latest
-  #   restart: always
-  #   ports:
-  #     - "2181:2181"
-  #   environment:
-  #     - ALLOW_ANONYMOUS_LOGIN=yes
+  minio:
+    image: minio/minio:latest
+    restart: always
+    ports:
+     - "9000:9000"
+     - "9001:9001"
+    volumes:
+      - "minio_data:/data"
+    environment:
+      - MINIO_ROOT_USER=adminminio
+      - MINIO_ROOT_PASSWORD=adminminio
+    command: server /data --address 0.0.0.0:9000 --console-address ":9001"
+  kafka:
+    build: bitnami/kafka:latest
+    restart: always
+    ports:
+      - "9092:9092"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+  zookeeper:
+    image: docker.io/bitnami/zookeeper:latest
+    restart: always
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
 volumes:
   minio_data:
     driver: local
