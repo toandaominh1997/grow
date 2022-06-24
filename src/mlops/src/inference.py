@@ -12,6 +12,9 @@ from minio import Minio
 # from mlflow import log_metric
 import json
 from kafka import KafkaConsumer
+
+from prometheus_client import start_http_server, Counter, Histogram
+start_http_server(8000)
 consumer = KafkaConsumer('data_iris',
                         bootstrap_servers=['0.0.0.0:9092'],
                         auto_offset_reset='earliest',
@@ -26,6 +29,11 @@ client = Minio(
     secret_key="adminminio",
     secure=False
 )
+
+count_interator = Counter('count_inference', 'Description of counter')
+hist_target = Histogram('hist_target', 'Description of histogram')
+
+
 root_path = Path(Path.cwd())
 model_path = root_path.joinpath("weights/pipe.jl")
 # Download s3 to local
@@ -37,6 +45,8 @@ for message in consumer:
     data = pd.DataFrame.from_records([value]).drop(columns = 'target')
     y_pred = pipe.predict(data)
     print(f"df: {data}, target: {y_pred[0]}")
+    count_interator.inc(1)
+    hist_target.observe(y_pred[0])
 
 
 # X, y = load_iris(return_X_y=True, as_frame= True)

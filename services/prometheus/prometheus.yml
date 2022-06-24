@@ -3,7 +3,7 @@ global:
   evaluation_interval: 15s
 
 scrape_configs:
-  - job_name: "python-app"
+  - job_name: "flaskapp"
     scrape_interval: 5s
     static_configs:
-      - targets: ["flask:8000"]
+      - targets: ['flaskapp:8000']
