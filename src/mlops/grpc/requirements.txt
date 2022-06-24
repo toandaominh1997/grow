@@ -1,0 +1,6 @@
+pandas
+minio
+grpcio-tools
+scikit-learn
+
+
