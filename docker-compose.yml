@@ -48,16 +48,16 @@ services:
   #  ports:
   #    - "9200:9200"
   #    - "9300:9300"
-  # prometheus:
-  #  build: ./services/prometheus
-  #  ports:
-  #    - "9090:9090"
-  #  volumes:
-  #    - ./services/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-  # grafana:
-  #  build: ./services/grafana
-  #  ports:
-  #    - "3000:3000"
+  prometheus:
+   build: ./services/prometheus
+   ports:
+     - "9090:9090"
+   volumes:
+     - ./services/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+  grafana:
+   build: ./services/grafana
+   ports:
+     - "3000:3000"
   # nginx:
   #  build: ./services/nginx
   #  restart: on-failure
