@@ -1,11 +1,12 @@
 FROM python:3.9
 
-WORKDIR /app
+WORKDIR /code
 RUN pip install --upgrade pip
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /app
+COPY . /code
+RUN ls
 
-CMD ["python", "app/app.py"]
+CMD ["python", "app.py"]
