@@ -26,6 +26,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -U rich
+          pip install -U psutil
       - name: system info
         run: |
           python tests/sysinfo.py
