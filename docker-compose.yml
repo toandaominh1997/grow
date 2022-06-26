@@ -51,7 +51,7 @@ services:
     ports:
     - "27017:27017"
   elasticsearch:
-    build: elasticsearch:latest
+    build: ./services/elasticsearch
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -103,7 +103,7 @@ services:
     command: server /data --address 0.0.0.0:9000 --console-address ":9001"
   kafka:
     container_name: kafka
-    build: bitnami/kafka:latest
+    build: "./services/kafka"
     restart: always
     ports:
       - "9092:9092"
