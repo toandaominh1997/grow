@@ -51,7 +51,7 @@ services:
     ports:
     - "27017:27017"
   elasticsearch:
-    build: elasticsearch/elasticsearch:latest
+    build: elasticsearch:latest
     ports:
       - "9200:9200"
       - "9300:9300"
