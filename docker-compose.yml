@@ -30,7 +30,8 @@ services:
     restart: on-failure
     ports:
       - "5432:5432"
-
+    volumes:
+      - 'postgresql_data:/bitnami/postgresql'
   redis:
     container_name: redis-database
     image: redis:latest
@@ -122,6 +123,14 @@ services:
       - "2181:2181"
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+  # neo4j:
+  #   image: docker.io/bitnami/neo4j:4
+  #   ports:
+  #     - '7474:7474'
+  #     - '7473:7473'
+  #     - '7687:7687'
+  #   volumes:
+  #     - 'neo4j_data:/bitnami'
 volumes:
   minio_data:
     driver: local
@@ -130,4 +139,8 @@ volumes:
   zookeeper_data:
     driver: local
   elasticsearch_data:
+    driver: local
+  neo4j_data:
+    driver: local
+  postgresql_data:
     driver: local

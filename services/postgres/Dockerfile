@@ -1,4 +1,4 @@
-FROM postgres:latest
+FROM bitnami/postgresql:14
 
 ENV POSTGRES_USER=user
 ENV POSTGRES_PASSWORD=password
