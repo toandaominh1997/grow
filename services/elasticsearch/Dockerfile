@@ -1,4 +1,4 @@
-FROM elasticsearch:latest
+FROM bitnami/elasticsearch:latest
 
 # ENV ES_PATH_CONF=/etc/elasticsearch
 #
