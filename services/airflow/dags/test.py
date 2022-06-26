@@ -40,7 +40,7 @@ def training():
     print('Hello world')
     print('Test training')
 with DAG(
-    'training_rnn',
+    'training_deep',
     default_args=default_args,
     description='A simple tutorial DAG',
     schedule_interval=timedelta(days=1),
