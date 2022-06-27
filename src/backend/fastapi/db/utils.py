@@ -1,7 +1,9 @@
 import psycopg2
-conn = psycopg2.connect(database = "database", user = "user", password = "password", host = "postgres", port = "5432")
-cur = conn.cursor()
+conn = None
+cur = None
 def query(query_string, value_dict=None):
+    conn = psycopg2.connect(database = "database", user = "user", password = "password", host = "postgres", port = "5432")
+    cur = conn.cursor()
     try:
         if value_dict != None:
             cur.execute(query_string, value_dict)
@@ -9,8 +11,11 @@ def query(query_string, value_dict=None):
             cur.execute(query_string)
         conn.commit()
         return cur
-    except Exception as e:
-        print('Error. Rollback connection')
+    except psycopg2.Error as t_err_msg:
+        print('error: ', t_err_msg)
+    except (Exception, psycopg2.DatabaseError) as error:
+        print("Error in transaction, reverting all changes using rollback ", error)
         conn.rollback()
-        print(e)
+    finally:
+        print("PostgreSQL database connection is closed")
     return cur
