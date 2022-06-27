@@ -41,8 +41,5 @@ VALUES
 
         """
         cur = self.pg.query(q)
-        output = cur.fetchall()
-        print(output)
-        if len(output) > 0:
-            return True
-        return False
+        output = cur.fetchone()
+        return output

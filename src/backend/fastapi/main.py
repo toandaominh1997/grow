@@ -3,7 +3,7 @@ from typing import List, Optional
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from db import init_db
-from routers import account, tinyurl
+from routers import account, tinyurl, search
 
 
 app = FastAPI()
@@ -17,6 +17,7 @@ app.add_middleware(
 
 app.include_router(account.router)
 app.include_router(tinyurl.router)
+app.include_router(search.router)
 
 
 @app.on_event("startup")

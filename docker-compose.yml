@@ -13,6 +13,17 @@ services:
   #    - "2345:2345"
   #  volumes:
   #    - ./src/blockchain:/code
+  nginx:
+    container_name: api-gateway
+    build: ./services/nginx
+    restart: on-failure
+    ports:
+      - "11111:11111"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./services/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+
   fastapi:
     container_name: fastapi-server
     build: "./src/backend/fastapi"
@@ -32,6 +43,19 @@ services:
       - "5432:5432"
     volumes:
       - 'postgresql_data:/bitnami/postgresql'
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+    ports:
+      - "5050:80"
   redis:
     container_name: redis-database
     image: redis:latest
@@ -103,28 +127,28 @@ services:
   #     - MINIO_ROOT_USER=adminminio
   #     - MINIO_ROOT_PASSWORD=adminminio
   #   command: server /data --address 0.0.0.0:9000 --console-address ":9001"
-  # kafka:
-  #   container_name: kafka
-  #   build: "./services/kafka"
-  #   restart: always
-  #   ports:
-  #     - "9092:9092"
-  #   environment:
-  #     - KAFKA_BROKER_ID=1
-  #     - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
-  #     - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
-  #     - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-  #     - ALLOW_PLAINTEXT_LISTENER=yes
-  #   depends_on:
-  #     - zookeeper
-  # zookeeper:
-  #   container_name: zookeeper
-  #   image: docker.io/bitnami/zookeeper:latest
-  #   restart: always
-  #   ports:
-  #     - "2181:2181"
-  #   environment:
-  #     - ALLOW_ANONYMOUS_LOGIN=yes
+  kafka:
+    container_name: kafka
+    build: "./services/kafka"
+    restart: always
+    ports:
+      - "9092:9092"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+  zookeeper:
+    container_name: zookeeper
+    image: docker.io/bitnami/zookeeper:latest
+    restart: always
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
   # neo4j:
   #   image: docker.io/bitnami/neo4j:4
   #   ports:
@@ -145,4 +169,6 @@ volumes:
   neo4j_data:
     driver: local
   postgresql_data:
+    driver: local
+  pgadmin_data:
     driver: local
