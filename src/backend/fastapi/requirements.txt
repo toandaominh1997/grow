@@ -3,6 +3,7 @@ redis
 kafka-python
 prometheus-client
 psycopg2-binary
+psycopg[binary]
 uvicorn
 
 

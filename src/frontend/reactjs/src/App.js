@@ -4,6 +4,7 @@ import Test from "./components/Test";
 import Home from "./components/Home";
 import SignIn from "./components/SignIn";
 import Search from "./components/Search";
+import TinyURL from "./components/TinyURL";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Button from "@mui/material/Button";
 
@@ -18,6 +19,7 @@ function App() {
 					<Route path="/signin" element={<SignIn/>}></Route>
 					<Route path="/search" element={<Search/>}></Route>
 					<Route path="/test" element={<Test/>}></Route>
+					<Route path="/tinyurl" element={<TinyURL/>}></Route>
 				</Routes>
 			</div>
 		</Router>

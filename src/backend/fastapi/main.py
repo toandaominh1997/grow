@@ -3,24 +3,26 @@ from typing import List, Optional
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from db import init_db
-from routers import account
+from routers import account, tinyurl, search
 
 
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['*'],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 app.include_router(account.router)
+app.include_router(tinyurl.router)
+app.include_router(search.router)
 
 
 @app.on_event("startup")
 async def startup_event():
-    print("Start DB")
+    print("Start init database")
     init_db()
 
 
