@@ -6,10 +6,10 @@ import subprocess
 from fastapi.responses import HTMLResponse
 import requests
 
-from db.user import userdb
-
+from db.user import USERDB
 router = APIRouter()
 
+userdb = USERDB()
 def init_db():
     print("hello")
 class User(BaseModel):

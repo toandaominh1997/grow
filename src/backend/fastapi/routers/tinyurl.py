@@ -22,13 +22,8 @@ class TinyURL(BaseModel):
     alias: Optional[str] = None
 @router.post("/v1/api/update_tinyurl")
 def get_tinyurl(tinyurl: TinyURL):
-    res = {
-        "tiny_url": None,
-        "domain": None,
-        "long_url": None,
-        "alias": None
-    }
-    if tinyurl.alias is not None:
+    print(f"alias:{tinyurl.alias}")
+    if tinyurl.alias != '':
         print('DB', urldb.get_db())
         print('validate alias longurl')
         out =  urldb.validate_alias_longurl(alias = tinyurl.alias, long_url = tinyurl.long_url)
@@ -44,13 +39,17 @@ def get_tinyurl(tinyurl: TinyURL):
     else:
         short_url = hashlib.shake_256(tinyurl.long_url.encode()).hexdigest(5)
         val_alias = urldb.validate_alias(alias = short_url)
-        if val_alias[0][0] == tinyurl.long_url:
-            return f"{tinyurl.long_url}/{short_url}"
-        else:
-            timestamp = datetime.datetime.now().timestamp()
-            short_url = short_url + str(int(timestamp))
+        if val_alias is None:
             urldb.insert_tinyurl(alias = short_url, long_url = tinyurl.long_url, domain = tinyurl.domain)
             return f"{tinyurl.domain}/{short_url}"
+        else:
+            if val_alias[2] == tinyurl.long_url:
+                return f"{tinyurl.domain}/{val_alias[1]}"
+            else:
+                timestamp = datetime.datetime.now().timestamp()
+                short_url = short_url + str(int(timestamp))
+                urldb.insert_tinyurl(alias = short_url, long_url = tinyurl.long_url, domain = tinyurl.domain)
+                return f"{tinyurl.domain}/{short_url}"
 @router.get("/{alias}")
 def generate_domain(alias):
     long_url = rd.get(alias)

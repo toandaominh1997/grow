@@ -1,20 +1,23 @@
-from .utils import query, cur
+from .utils import PostgresSQL
 
 class USERDB(object):
     def __init__(self):
-        pass
+        self.pg = PostgresSQL()
     def fit(self):
         self.create_user()
     def create_user(self):
-        create_query = """
+        query_string = """
         CREATE TABLE IF NOT EXISTS D_USER (
         id SERIAL PRIMARY KEY,
         USER_NAME VARCHAR UNIQUE,
         PASSWORD VARCHAR NOT NULL
         );
         """
-        query(create_query)
-        print("Done create user table")
+        cur = self.pg.query(query_string)
+        if cur:
+            print('Done Create User Table')
+        else:
+            print('InCompleted Create UserTable')
     def insert_user(self, user_name, password):
         q = f""" 
 INSERT INTO D_USER(user_name, password)
@@ -23,8 +26,8 @@ VALUES
         """
         values = {"user_name": user_name,
                   "password": password}
-        query(q, values)
-        return True
+        cur = self.pg.query(q, values)
+        return cur
     def validate_user(self, user_name, password):
         q = f""" 
         SELECT
@@ -37,11 +40,9 @@ VALUES
         and password = '{password}'
 
         """
-        cur.execute(q)
+        cur = self.pg.query(q)
         output = cur.fetchall()
         print(output)
         if len(output) > 0:
             return True
         return False
-
-userdb = USERDB()

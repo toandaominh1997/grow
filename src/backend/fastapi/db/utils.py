@@ -19,3 +19,20 @@ def query(query_string, value_dict=None):
     finally:
         print("PostgreSQL database connection is closed")
     return cur
+
+import psycopg 
+
+class PostgresSQL(object):
+    def __init__(self, connection = "dbname=database user=user password=password host=postgres port=5432"):
+        self.conn = psycopg.connect(connection)
+    def query(self, query_string, params = None):
+        try:
+            cur = self.conn.execute(query = query_string, params = params)
+            return cur
+        except BaseException or psycopg.Error as e:
+            print('Error: ', e)
+            self.conn.rollback()
+        finally:
+            print('commit')
+            self.conn.commit()
+        return None
