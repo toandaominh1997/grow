@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 import Container from '@mui/material/Container';
 
 
-const URL_BASE = "0.0.0.0:1234";
+const URL_BASE = "http://0.0.0.0:1234";
 class Search extends Component {
 	constructor(props) {
 		super(props);

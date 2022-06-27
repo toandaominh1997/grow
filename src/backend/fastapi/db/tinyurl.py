@@ -1,28 +1,10 @@
-from .utils import query
+from .utils import query, PostgresSQL
 import psycopg2
 
 
 class TinyURLDB(object):
     def __init__(self):
-        conn = psycopg2.connect(database = "database", user = "user", password = "password", host = "postgres", port = "5432")
-        self.cur = conn.cursor()
-        self.conn = conn
-    def query(self, query_string, value_dict = None):
-        try:
-            if value_dict != None:
-                self.cur.execute(query_string, value_dict)
-            else: 
-                self.cur.execute(query_string)
-            return self.cur
-        except psycopg2.Error as t_err_msg:
-            print('error: ', t_err_msg)
-        except (Exception, psycopg2.DatabaseError) as error:
-            print("Error in transaction, reverting all changes using rollback ", error)
-            self.conn.rollback()
-        finally:
-            print("PostgreSQL database connection is closed")
-        return self.cur
-
+        self.pg = PostgresSQL()
     def fit(self):
         self.create_tinyurl()
     def create_tinyurl(self):
@@ -36,7 +18,7 @@ class TinyURLDB(object):
         );
         """
 
-        query(query_string)
+        self.pg.query(query_string)
         print('done create D_TINYURL')
         return True
 
@@ -51,7 +33,7 @@ class TinyURLDB(object):
                   "long_url": long_url,
                   "domain": domain,
                   }
-        query(q, values)
+        self.pg.query(q, values)
         return True
 
     def validate_longurl(self, tiny_url, long_url):
@@ -64,8 +46,9 @@ class TinyURLDB(object):
         where 1=1
         and long_url = '{long_url}'
         """
-        self.cur.execute(q)
-        output = self.cur.fetchall()
+
+        cur = self.pg.query(q)
+        output = cur.fetchall()
         print('output', output)
         if len(output) > 0:
             return output
@@ -82,8 +65,8 @@ class TinyURLDB(object):
         and alias = '{alias}'
         and long_url = '{long_url}'
         """
-        self.cur.execute(q)
-        output = self.cur.fetchall()
+        cur = self.pg.query(q)
+        output = cur.fetchall()
         print('output alias long url', output)
         if len(output) > 0:
             return output
@@ -97,8 +80,8 @@ class TinyURLDB(object):
         where 1=1
         and alias = '{alias}'
         """
-        self.cur.execute(q)
-        output = self.cur.fetchall()
+        cur = self.pg.query(q)
+        output = cur.fetchall()
         if len(output) > 0:
             return output
         return None
@@ -107,17 +90,17 @@ class TinyURLDB(object):
         SELECT
         distinct
         domain,
-        alias
+        alias,
+        long_url
         FROM D_TINYURL
         where 1=1
         and alias = '{alias}'
         """
-        self.cur.execute(q)
-        output = self.cur.fetchall()
+        cur = self.pg.query(q)
+        output = cur.fetchone()
         print('output', output)
-        if len(output) > 0:
-            return output
-        return None
+        print("check fetchone", cur.fetchone())
+        return output
     def get_db(self):
         q = f""" 
         SELECT
@@ -126,8 +109,13 @@ class TinyURLDB(object):
         FROM D_TINYURL
         where 1=1
         """
-        self.cur.execute(q)
-        output = self.cur.fetchall()
+        cur = self.pg.query(q)
+        output = cur.fetchall()
         if len(output) > 0:
             return output
         return None
+    def delete_db(self):
+        query_string = """ 
+DROP TABLE IF EXISTS D_TINYURL;
+        """
+        self.pg.query(query_string)
