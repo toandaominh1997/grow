@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  superset:
+    image: apache/superset:latest
+    restart: on-failure
+    ports:
+      - "8080:8088"
+
+
