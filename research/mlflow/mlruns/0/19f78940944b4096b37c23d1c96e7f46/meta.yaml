@@ -1,0 +1,15 @@
+artifact_uri: file:///home/tonne/code/grow/research/mlflow/mlruns/0/19f78940944b4096b37c23d1c96e7f46/artifacts
+end_time: 1656781198300
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: 19f78940944b4096b37c23d1c96e7f46
+run_uuid: 19f78940944b4096b37c23d1c96e7f46
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1656781198285
+status: 3
+tags: []
+user_id: tonne
