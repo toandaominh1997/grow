@@ -1,0 +1,6 @@
+{
+  "scripts": {
+  "ganache": "ganache --wallet.seed myCustomSeed"
+}
+}
+
