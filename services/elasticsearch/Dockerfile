@@ -1,4 +1,4 @@
-FROM bitnami/elasticsearch:latest
+FROM bitnami/elasticsearch:8.2.3
 
 # ENV ES_PATH_CONF=/etc/elasticsearch
 #
