@@ -1,3 +1,5 @@
-FROM logstash:7.14.1
+FROM bitnami/logstash:8.2.3
 
-#EXPOSE ,
+EXPOSE 8080
+
+
