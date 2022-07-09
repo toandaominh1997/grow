@@ -18,12 +18,14 @@ application = get_asgi_application()
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-from polls.routers import questions_router
+from polls.routers import questions_router, tinyurl_router
 
 fastapp = FastAPI()
 fastapp.include_router(questions_router.router, tags=["questions"], prefix = "/question")
+fastapp.include_router(tinyurl_router.router, tags=["tinyurl"], prefix = "/tinyurl")
 
 MOUNT_DJANGO_APP = True
-fastapp.mount("/django", application)
-fastapp.mount("/static", StaticFiles(directory="staticfiles"), name="static")
+if MOUNT_DJANGO_APP:
+    fastapp.mount("/django", application)
+    fastapp.mount("/static", StaticFiles(directory="staticfiles"), name="static")
 

@@ -35,14 +35,14 @@ services:
   #   depends_on:
   #     - postgres
   #     - redis
-  # postgres:
-  #   container_name: postgres-database
-  #   build: "./services/postgres"
-  #   restart: on-failure
-  #   ports:
-  #     - "5432:5432"
-  #   volumes:
-  #     - 'postgresql_data:/bitnami/postgresql'
+  postgres:
+    container_name: postgres-database
+    build: "./services/postgres"
+    restart: on-failure
+    ports:
+      - "5432:5432"
+    volumes:
+      - 'postgresql_data:/bitnami/postgresql'
   # pgadmin:
   #   container_name: pgadmin_container
   #   image: dpage/pgadmin4
@@ -56,11 +56,11 @@ services:
   #
   #   ports:
   #     - "5050:80"
-  # redis:
-  #   container_name: redis-database
-  #   image: redis:latest
-  #   ports:
-  #     - "6379:6379"
+  redis:
+    container_name: redis-database
+    image: redis:latest
+    ports:
+      - "6379:6379"
   #mariadb:
   #  build: "./services/mariadb"
   #  ports:
@@ -78,31 +78,31 @@ services:
   #   - "27017:27017"
 
   # Elastic Stack
-  elasticsearch:
-    build: ./services/elasticsearch
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    volumes:
-      - 'elasticsearch_data:/bitnami/elasticsearch/data'
-    environment:
-      - xpack.security.enabled=false
-      - discovery.type=single-node
-  logstash:
-    build: ./services/logstash
-    ports:
-      - "8080:8090"
-    volumes:
-      - logstash_data:/bitnami
-  kibana:
-    build: ./services/kibana
-    ports:
-      - "5601:5601"
-    volumes:
-      - "kibana_data:/bitnami/kibana"
-    depends_on:
-      - elasticsearch
-
+  # elasticsearch:
+  #   build: ./services/elasticsearch
+  #   ports:
+  #     - "9200:9200"
+  #     - "9300:9300"
+  #   volumes:
+  #     - 'elasticsearch_data:/bitnami/elasticsearch/data'
+  #   environment:
+  #     - xpack.security.enabled=false
+  #     - discovery.type=single-node
+  # logstash:
+  #   build: ./services/logstash
+  #   ports:
+  #     - "8080:8090"
+  #   volumes:
+  #     - logstash_data:/bitnami
+  # kibana:
+  #   build: ./services/kibana
+  #   ports:
+  #     - "5601:5601"
+  #   volumes:
+  #     - "kibana_data:/bitnami/kibana"
+  #   depends_on:
+  #     - elasticsearch
+  #
   # flaskapp:
   #   container_name: flaskapp
   #   build: ./src/backend/prometheus
@@ -144,28 +144,28 @@ services:
   #     - MINIO_ROOT_USER=adminminio
   #     - MINIO_ROOT_PASSWORD=adminminio
   #   command: server /data --address 0.0.0.0:9000 --console-address ":9001"
-  kafka:
-    container_name: kafka
-    build: "./services/kafka"
-    restart: always
-    ports:
-      - "9092:9092"
-    environment:
-      - KAFKA_BROKER_ID=1
-      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-      - ALLOW_PLAINTEXT_LISTENER=yes
-    depends_on:
-      - zookeeper
-  zookeeper:
-    container_name: zookeeper
-    image: docker.io/bitnami/zookeeper:latest
-    restart: always
-    ports:
-      - "2181:2181"
-    environment:
-      - ALLOW_ANONYMOUS_LOGIN=yes
+  # kafka:
+  #   container_name: kafka
+  #   build: "./services/kafka"
+  #   restart: always
+  #   ports:
+  #     - "9092:9092"
+  #   environment:
+  #     - KAFKA_BROKER_ID=1
+  #     - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+  #     - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
+  #     - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+  #     - ALLOW_PLAINTEXT_LISTENER=yes
+  #   depends_on:
+  #     - zookeeper
+  # zookeeper:
+  #   container_name: zookeeper
+  #   image: docker.io/bitnami/zookeeper:latest
+  #   restart: always
+  #   ports:
+  #     - "2181:2181"
+  #   environment:
+  #     - ALLOW_ANONYMOUS_LOGIN=yes
   # neo4j:
   #   image: docker.io/bitnami/neo4j:4
   #   ports:
