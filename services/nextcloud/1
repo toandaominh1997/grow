@@ -1,0 +1,36 @@
+version: '3.8'
+
+
+services:
+  postgres:
+    image: docker.io/bitnami/postgresql:14
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - 'postgresql_data:/bitnami/postgresql'
+    environment:
+      - POSTGRES_DB=admin
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+
+  app:
+    image: nextcloud
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - nextcloud_data:/var/www/html
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DB=admin
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    depends_on:
+      - postgres
+volumes:
+  postgresql_data:
+    driver: local
+  nextcloud_data:
+    driver: local
+
