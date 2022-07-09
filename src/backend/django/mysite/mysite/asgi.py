@@ -14,3 +14,16 @@ from django.core.asgi import get_asgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
 
 application = get_asgi_application()
+
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+
+from polls.routers import questions_router
+
+fastapp = FastAPI()
+fastapp.include_router(questions_router.router, tags=["questions"], prefix = "/question")
+
+MOUNT_DJANGO_APP = True
+fastapp.mount("/django", application)
+fastapp.mount("/static", StaticFiles(directory="staticfiles"), name="static")
+
