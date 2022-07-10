@@ -131,19 +131,19 @@ services:
   #     - "33333:8080"
   #     - "50000:50000"
   #
-  # minio:
-  #   container_name: minio
-  #   image: minio/minio:latest
-  #   restart: always
-  #   ports:
-  #    - "9000:9000"
-  #    - "9001:9001"
-  #   volumes:
-  #     - "minio_data:/data"
-  #   environment:
-  #     - MINIO_ROOT_USER=adminminio
-  #     - MINIO_ROOT_PASSWORD=adminminio
-  #   command: server /data --address 0.0.0.0:9000 --console-address ":9001"
+  minio:
+    container_name: minio
+    image: minio/minio:latest
+    restart: always
+    ports:
+     - "9000:9000"
+     - "9001:9001"
+    volumes:
+      - "minio_data:/data"
+    environment:
+      - MINIO_ROOT_USER=adminminio
+      - MINIO_ROOT_PASSWORD=adminminio
+    command: server /data --address 0.0.0.0:9000 --console-address ":9001"
   # kafka:
   #   container_name: kafka
   #   build: "./services/kafka"
@@ -193,3 +193,8 @@ volumes:
     driver: local
   pgadmin_data:
     driver: local
+
+networks:
+  default:
+    name: tonne
+    external: true

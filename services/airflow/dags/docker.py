@@ -21,12 +21,14 @@ with DAG(
     t1 = BashOperator(task_id='print_date', bash_command='date', dag=dag)
     t2 = BashOperator(task_id='sleep', bash_command='sleep 5', retries=3, dag=dag)
     t3 = DockerOperator(
+        task_id='docker_op_main',
+        image='toandaominh1997/test:latest',
+        command='python main.py',
+        api_version = 'auto',
+        auto_remove = True,
         docker_url='unix://var/run/docker.sock',  # Set your docker URL
-        command='echo 30',
-        image='ubuntu:latest',
         network_mode='bridge',
-        task_id='docker_op_tester',
-        dag=dag,
+        mount_tmp_dir=False
     )
     t4 = BashOperator(task_id='print_hello', bash_command='echo "hello world!!!"', dag=dag)
     t1 >> t2
