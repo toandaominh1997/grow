@@ -1,0 +1,9 @@
+[core]
+    remote = minio
+    autostage = True
+['remote "minio"']
+    url = s3://mlops
+    endpointurl = http://localhost:9000
+    access_key_id = adminminio
+    secret_access_key = adminminio
+    use_ssl = False

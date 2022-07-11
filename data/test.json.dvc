@@ -1,0 +1,4 @@
+outs:
+- md5: 0846fbe319b5f239a0bd05fad3ab8911
+  size: 32
+  path: test.json

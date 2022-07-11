@@ -1,3 +1,9 @@
+numpy
+pandas
+scikit-learn
 fastapi[all]
 uvicorn
 minio
+grpcio
+grpcio-tools
+prometheus-client

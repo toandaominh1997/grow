@@ -8,27 +8,34 @@ from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.utils.dates import days_ago
 
 ENV_ID = os.environ.get("SYSTEM_TESTS_ENV_ID")
-DAG_ID = 'docker_test'
+DAG_ID = 'mlops_model'
 
 with DAG(
     DAG_ID,
-    description='A docker tutorial DAG',
+    description='A MLOps tutorial in Airflow',
     schedule_interval=timedelta(days=1),
     start_date=days_ago(2),
     tags=['training', 'docker'],
 
 ) as dag:
-    t1 = BashOperator(task_id='print_date', bash_command='date', dag=dag)
-    t2 = BashOperator(task_id='sleep', bash_command='sleep 5', retries=3, dag=dag)
-    t3 = DockerOperator(
+    preprocess = DockerOperator(
+        task_id='preprocess',
+        image='toandaominh1997/test:latest',
+        command='python main.py preprocess=true',
+        api_version = 'auto',
+        auto_remove = True,
         docker_url='unix://var/run/docker.sock',  # Set your docker URL
-        command='echo 30',
-        image='ubuntu:latest',
-        network_mode='bridge',
-        task_id='docker_op_tester',
-        dag=dag,
+        network_mode='host',
+        mount_tmp_dir=False
     )
-    t4 = BashOperator(task_id='print_hello', bash_command='echo "hello world!!!"', dag=dag)
-    t1 >> t2
-    t1 >> t3
-    t3 >> t4
+    train = DockerOperator(
+        task_id='train',
+        image='toandaominh1997/test:latest',
+        command='python main.py train=true',
+        api_version = 'auto',
+        auto_remove = True,
+        docker_url='unix://var/run/docker.sock',  # Set your docker URL
+        network_mode='host',
+        mount_tmp_dir=False
+    )
+    preprocess >> train
