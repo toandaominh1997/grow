@@ -114,18 +114,18 @@ services:
   #   depends_on:
   #     - prometheus
   #
-  # prometheus:
-  #   container_name: prometheus
-  #   build: ./services/prometheus
-  #   ports:
-  #     - "9090:9090"
-  #   volumes:
-  #     - ./services/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
-  # grafana:
-  #   container_name: grafana
-  #   build: ./services/grafana
-  #   ports:
-  #     - "3000:3000"
+  prometheus:
+    container_name: prometheus
+    build: ./services/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./services/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+  grafana:
+    container_name: grafana
+    build: ./services/grafana
+    ports:
+      - "3000:3000"
   # jenkins:
   #   container_name: jenkins
   #   build: ./services/jenkins
