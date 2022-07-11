@@ -16,3 +16,7 @@ app.include_router(model.router)
 @app.get("/")
 async def root():
     return {"message": "Hello Bigger Applications!"}
+
+from prometheus_client import start_http_server
+
+start_http_server(port = 8000)

@@ -1,3 +1,8 @@
+pandas
+numpy
 scikit-learn
+minio
 mlflow
 prometheus-client
+hydra-core
+slack_sdk

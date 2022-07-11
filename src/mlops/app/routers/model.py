@@ -1,29 +1,18 @@
-from pydantic import BaseModel
 import pandas as pd
-
+from pydantic import BaseModel
 from pathlib import Path
 from typing import Optional
 from fastapi import APIRouter
-from minio import Minio
-from joblib import load, dump
-from sklearn.datasets import load_iris
+from model.sklearn import SklearnModel
 
-X, y = load_iris(return_X_y=True, as_frame= True)
-print(X.columns)
+from prometheus_client import Summary, Histogram
+
+hist_sl = Histogram('hist_sl', 'Tracking sl')
+hist_sw = Histogram('hist_sw', 'Tracking sw')
+hist_pl = Histogram('hist_pl', 'Tracking pl')
+hist_pw = Histogram('hist_pw', 'Tracking pw')
+
 router = APIRouter()
-client = Minio(
-    "0.0.0.0:9000",
-    access_key="adminminio",
-    secret_key="adminminio",
-    secure=False
-)
-
-root_path = Path(Path.cwd())
-model_path = root_path.joinpath("weights/pipe.jl")
-# Download s3 to local
-client.fget_object(bucket_name = 'mlops', object_name = 'demo/pipe.jl', file_path = str(model_path))
-
-pipe = load(str(model_path))
 class Item(BaseModel):
     sl: Optional[float] = None
     sw: Optional[float] = None
@@ -35,13 +24,21 @@ idx2col = {
     'pl': 'petal length (cm)',
     'pw': 'petal width (cm)'
 }
+pipe = SklearnModel().get_model()
 @router.post("/v1/api/prediction")
 def predict_item(item: Optional[Item] = None):
+    print("predict item")
     data = {}
     data[idx2col['sl']] = item.sl 
     data[idx2col['sw']] = item.sw
     data[idx2col['pl']] = item.pl 
     data[idx2col['pw']] = item.pw
+
+    hist_sl.observe(item.sl)
+    hist_sw.observe(item.sw)
+    hist_pl.observe(item.pl)
+    hist_pw.observe(item.pw)
+
     data = pd.DataFrame.from_records([data])
     y_pred = pipe.predict(data)[0]
 

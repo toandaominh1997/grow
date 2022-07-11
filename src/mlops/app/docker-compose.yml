@@ -1,0 +1,27 @@
+version: "3.8"
+
+networks:
+  default:
+    name: tonne
+    external: true
+services:
+  restapi:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: on-failure
+    ports:
+      - "2345:2345"
+      - "8000:8000"
+    volumes:
+      - ./:/code
+    depends_on:
+      - grpc
+  grpc:
+    build:
+      context: ./
+      dockerfile: Dockerfile_grpc
+    restart: on-failure
+    ports:
+      - "50052:50052"
+
