@@ -50,6 +50,7 @@ class Pipe(object):
         pipe = Pipeline([('scaler', StandardScaler()), ('svc', SVC())])
         pipe.fit(X, y)
         score = pipe.score(X_test, y_test)
+        print("Post message ...")
         postMessage(text = f"accuracy_score: {score}")
         dump(pipe, self.model_path)
         print(f"Upload {self.model_path} to s3")
