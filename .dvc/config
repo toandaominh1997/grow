@@ -1,0 +1,7 @@
+[core]
+    remote = minio
+['remote "minio"']
+    url = s3://mlops/data
+    endpointurl = http://localhost:9001/
+    access_key_id = adminminio
+    secret_access_key = adminminio
