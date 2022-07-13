@@ -9,10 +9,10 @@ metadata:
 spec:
   tls:
     - hosts:
-      - 4c03-14-187-105-14.ap.ngrok.io
-      secretName: 4c03-14-187-105-14.ap.ngrok.io
+      - 6ab9-14-187-105-14.ap.ngrok.io
+      secretName: 6ab9-14-187-105-14.ap.ngrok.io
   rules:
-    - host: 4c03-14-187-105-14.ap.ngrok.io
+    - host: 6ab9-14-187-105-14.ap.ngrok.io
       http:
         paths:
           - path: /?(.*)
