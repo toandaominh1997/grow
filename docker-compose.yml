@@ -25,18 +25,30 @@ services:
       - ./services/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - fastapi
+  # django:
+  #   container_name: django-server
+  #   build: "./src/backend/django"
+  #   restart: on-failure
+  #   ports:
+  #     - "8000:8000"
+  #     - "8001:8001"
+  #   volumes:
+  #     - ./src/backend/django:/code
+  #   depends_on:
+  #     - postgres
+  #     - redis
 
-  fastapi:
-    container_name: fastapi-server
-    build: "./src/backend/fastapi"
-    restart: on-failure
-    ports:
-      - "1234:1234"
-    volumes:
-      - ./src/backend/fastapi:/code
-    depends_on:
-      - postgres
-      - redis
+  # fastapi:
+  #   container_name: fastapi-server
+  #   build: "./src/backend/fastapi"
+  #   restart: on-failure
+  #   ports:
+  #     - "1234:1234"
+  #   volumes:
+  #     - ./src/backend/fastapi:/code
+  #   depends_on:
+  #     - postgres
+  #     - redis
   postgres:
     container_name: postgres-database
     build: "./services/postgres"
@@ -45,19 +57,19 @@ services:
       - "5432:5432"
     volumes:
       - 'postgresql_data:/bitnami/postgresql'
-  # pgadmin:
-  #   container_name: pgadmin_container
-  #   image: dpage/pgadmin4
-  #   restart: always
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: admin@admin.com
-  #     PGADMIN_DEFAULT_PASSWORD: root
-  #     PGADMIN_CONFIG_SERVER_MODE: 'False'
-  #   volumes:
-  #     - pgadmin_data:/var/lib/pgadmin
-  #
-  #   ports:
-  #     - "5050:80"
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+    ports:
+      - "5050:80"
   redis:
     container_name: redis-database
     image: redis:latest

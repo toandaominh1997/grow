@@ -8,27 +8,30 @@ import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 
+const URL_BASE = "http://0.0.0.0:8001";
 class Blog extends Component {
-  cards = [
-    {
-      image:
-        "https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg",
-      title: "tonne",
-      category: "milk",
-    },
-    {
-      image:
-        "https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg",
-      title: "tonne",
-      category: "milk",
-    },
-    {
-      image:
-        "https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg",
-      title: "Image 5",
-      category: "lala",
-    },
-  ];
+    constructor(props) {
+        super(props);
+        
+        this.fetchData();
+        this.state = {
+            card: 'none',
+        };
+    }
+  cards = []
+  fetchData(){
+    const requestOptions = {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+    };
+    const res = fetch(`${URL_BASE}/v1/api/recommend`, requestOptions)
+    .then((response) => response.json())
+    .then((data) => {
+        console.log("data", data);
+        this.setState({card: 0});
+        this.cards = data;
+    });
+  }
   render() {
     return (
       <div className="root">
@@ -36,14 +39,14 @@ class Blog extends Component {
 
         <Grid container spacing={1} direction="column" alignItems="center">
           {this.cards.map((card) => {
-            const { image, title, category } = card;
+            const { user_id, title, image_url, description} = card;
             return (
               <Grid item>
                 <Card sx={{ minWidth: 768 }}>
                   <CardMedia
                     component="img"
                     height="140"
-                    image={image}
+                    image={image_url}
                     alt="green iguana"
                   />
                   <CardContent>
@@ -52,7 +55,7 @@ class Blog extends Component {
                     </Typography>
 
                     <Typography variant="body2" color="text.secondary">
-                      {category}
+                      {description}
                     </Typography>
                   </CardContent>
                   <Divider light />
