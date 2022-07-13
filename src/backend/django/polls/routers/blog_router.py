@@ -1,7 +1,10 @@
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 from polls.adapters.blog import BlogAdapter
+from prometheus_client import Summary, Counter
 
+REQUEST_SEARCH = Summary('request_search', 'Number of Search Engine')
+count_search = Counter("count_search", "Number of Search")
 
 blog = BlogAdapter()
 class Item(BaseModel):
@@ -51,9 +54,16 @@ def recommend_blog():
 @router.get("/sync-search")
 def recommend_blog():
     response = blog.sync_es()
-    print(response)
     return response
+
+@REQUEST_SEARCH.time()
 @router.post("/search")
 def search(search: Search):
     response = blog.search(search.text)
+    count_search.inc()
+    return response
+
+@router.get("/search_log")
+def recommend_blog():
+    response = blog.search_log()
     return response

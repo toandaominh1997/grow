@@ -3,7 +3,7 @@ global:
   evaluation_interval: 15s
 
 scrape_configs:
-  - job_name: "restapi"
+  - job_name: "django"
     scrape_interval: 5s
     static_configs:
-      - targets: ['restapi:8000']
+      - targets: ['0.0.0.0:8989']
