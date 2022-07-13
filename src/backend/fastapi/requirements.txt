@@ -1,6 +1,6 @@
 fastapi[all]
 redis
-kafka-python
+kafka-python==2.0.1
 prometheus-client
 psycopg2-binary
 psycopg[binary]
