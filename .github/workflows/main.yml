@@ -22,6 +22,7 @@ jobs:
 
       - name: Run docker compose build
         run: |
+          docker network create tonne
           docker-compose build
       - name: Run docker compose
         run: docker-compose up -d
