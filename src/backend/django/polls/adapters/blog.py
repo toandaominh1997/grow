@@ -1,9 +1,10 @@
 from polls.models import Blog
+import json
 from django.db import connection
 import redis
 from elasticsearch import Elasticsearch, helpers
 from kafka import KafkaProducer
-import json
+import pymongo
 
 rd = redis.Redis(host = '0.0.0.0', port = 6379, db = 0)
 producer = KafkaProducer(bootstrap_servers=['0.0.0.0:9092'],
@@ -12,6 +13,10 @@ producer = KafkaProducer(bootstrap_servers=['0.0.0.0:9092'],
                          )
 
 client = Elasticsearch("http://0.0.0.0:9200")
+
+mongo = pymongo.MongoClient("mongodb://0.0.0.0:27017")
+dbmongo = mongo["database"]
+colmongo = dbmongo['blog']
 
 class BlogAdapter(object):
 
@@ -74,7 +79,7 @@ class BlogAdapter(object):
             client.index(index = "blog", id = id, document=doc)
         return True
     def search(self, text):
-        print("get: ", client.get(index = 'blog', id = 0))
+        colmongo.insert_one({'text': text})
         query = {
             "match": {
                 "title": text
@@ -91,4 +96,11 @@ class BlogAdapter(object):
             ans.append({"id": id, "user_id": user_id , "title": title, "image_url": image_url, "description": description})
 
         return ans
+    def search_log(self, k = 10):
+        response = colmongo.find().sort("text")
+        ans = []
+        for res in response:
+            ans.append(res['text'])
+        return ans
+
 
