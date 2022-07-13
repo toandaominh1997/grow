@@ -94,16 +94,16 @@ services:
   #     - 'mongodb_data:/bitnami/mongodb'
 
   # Elastic Stack
-  # elasticsearch:
-  #   build: ./services/elasticsearch
-  #   ports:
-  #     - "9200:9200"
-  #     - "9300:9300"
-  #   volumes:
-  #     - 'elasticsearch_data:/bitnami/elasticsearch/data'
-  #   environment:
-  #     - xpack.security.enabled=false
-  #     - discovery.type=single-node
+  elasticsearch:
+    build: ./services/elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - 'elasticsearch_data:/bitnami/elasticsearch/data'
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
   # logstash:
   #   build: ./services/logstash
   #   ports:
@@ -160,28 +160,28 @@ services:
       - MINIO_ROOT_USER=adminminio
       - MINIO_ROOT_PASSWORD=adminminio
     command: server /data --address 0.0.0.0:9000 --console-address ":9001"
-  # kafka:
-  #   container_name: kafka
-  #   build: "./services/kafka"
-  #   restart: always
-  #   ports:
-  #     - "9092:9092"
-  #   environment:
-  #     - KAFKA_BROKER_ID=1
-  #     - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
-  #     - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
-  #     - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-  #     - ALLOW_PLAINTEXT_LISTENER=yes
-  #   depends_on:
-  #     - zookeeper
-  # zookeeper:
-  #   container_name: zookeeper
-  #   image: docker.io/bitnami/zookeeper:latest
-  #   restart: always
-  #   ports:
-  #     - "2181:2181"
-  #   environment:
-  #     - ALLOW_ANONYMOUS_LOGIN=yes
+  kafka:
+    container_name: kafka
+    build: "./services/kafka"
+    restart: always
+    ports:
+      - "9092:9092"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+  zookeeper:
+    container_name: zookeeper
+    image: docker.io/bitnami/zookeeper:latest
+    restart: always
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
   # neo4j:
   #   image: docker.io/bitnami/neo4j:4
   #   ports:
