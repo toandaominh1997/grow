@@ -35,4 +35,12 @@ class Movie(models.Model):
         db_table = 'movie'
 
 
-    
+class Blog(models.Model):
+    title = models.CharField(max_length=256, )
+    user_id = models.CharField(max_length=128)
+    title = models.CharField(max_length=256, )
+    image_url = models.CharField(max_length=256, null=True)
+    description = models.CharField(max_length=10000)
+    class Meta:
+        db_table = 'blog'
+
