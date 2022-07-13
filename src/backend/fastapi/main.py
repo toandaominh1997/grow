@@ -5,7 +5,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from db import init_db
 from routers import account, tinyurl, search
 
-
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,

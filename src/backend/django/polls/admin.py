@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Question, Choice, TinyURL
+from .models import Question, Choice, TinyURL, Movie
 # Register your models here.
 
 class ChoiceInline(admin.StackedInline):
@@ -15,5 +15,8 @@ class QuestionAdmin(admin.ModelAdmin):
     ]
     inlines = [ChoiceInline]
     list_display = ('question_text', 'pub_date', 'was_published_recently')
+class MovieAdmin(admin.ModelAdmin):
+    pass
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(TinyURL)
+admin.site.register(Movie)

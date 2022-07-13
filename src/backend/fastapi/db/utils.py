@@ -1,8 +1,13 @@
+import os
 import psycopg2
+from config import config
+print("config: ", config)
+
 conn = None
 cur = None
 def query(query_string, value_dict=None):
-    conn = psycopg2.connect(database = "database", user = "user", password = "password", host = "postgres", port = "5432")
+    conn = psycopg2.connect(database = config['POSTGRES_DATABASE'], 
+                            user = config["POSTGRES_USER"], password = "password", host = "postgres", port = "5432")
     cur = conn.cursor()
     try:
         if value_dict != None:
@@ -23,7 +28,13 @@ def query(query_string, value_dict=None):
 import psycopg 
 
 class PostgresSQL(object):
-    def __init__(self, connection = "dbname=database user=user password=password host=postgres port=5432"):
+    def __init__(self, connection = f"""dbname={os.getenv("POSTGRES_DATABASE")} 
+                 user={config["POSTGRES_USER"]} 
+                 password={config["POSTGRES_PASSWORK"]} 
+                 host={config["POSTGRES_HOST"]} 
+                 port={config["POSTGRES_PORT"]}
+                 """):
+        print("connection: ", connection)
         self.conn = psycopg.connect(connection)
     def query(self, query_string, params = None):
         try:

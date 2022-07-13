@@ -25,4 +25,14 @@ class TinyURL(models.Model):
         db_table = 'tinyurl'
 
 
+class Movie(models.Model):
+    id = models.IntegerField(primary_key=True)
+    title = models.CharField(max_length=256, )
+    overview = models.CharField(max_length=1000)
+    genres = models.CharField(max_length=256)
+    poster = models.CharField(max_length=256)
+    class Meta:
+        db_table = 'movie'
+
+
     

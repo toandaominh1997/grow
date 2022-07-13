@@ -18,11 +18,12 @@ application = get_asgi_application()
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-from polls.routers import questions_router, tinyurl_router
+from polls.routers import questions_router, tinyurl_router, movie_router
 
 fastapp = FastAPI()
 fastapp.include_router(questions_router.router, tags=["questions"], prefix = "/question")
 fastapp.include_router(tinyurl_router.router, tags=["tinyurl"], prefix = "/tinyurl")
+fastapp.include_router(movie_router.router, tags = ['movie'])
 
 MOUNT_DJANGO_APP = True
 if MOUNT_DJANGO_APP:
