@@ -10,7 +10,8 @@ class Item(BaseModel):
     title: str 
     image_url: str
     description: str
-
+class Search(BaseModel):
+    text: str
 
 router = APIRouter()
 
@@ -47,4 +48,12 @@ def recommend_blog():
     print(response)
     return response
 
-    
+@router.get("/sync-search")
+def recommend_blog():
+    response = blog.sync_es()
+    print(response)
+    return response
+@router.post("/search")
+def search(search: Search):
+    response = blog.search(search.text)
+    return response
