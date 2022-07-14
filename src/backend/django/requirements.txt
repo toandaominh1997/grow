@@ -1,0 +1,12 @@
+django==4.0.6
+fastapi[all]
+redis
+kafka-python
+prometheus-client
+psycopg[binary]
+psycopg2-binary
+uvicorn
+djangorestframework
+markdown
+django-filter
+pymongo
