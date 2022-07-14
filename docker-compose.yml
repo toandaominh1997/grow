@@ -138,13 +138,13 @@ services:
     build: ./services/grafana
     ports:
       - "3001:3000"
-  # jenkins:
-  #   container_name: jenkins
-  #   build: ./services/jenkins
-  #   ports:
-  #     - "33333:8080"
-  #     - "50000:50000"
-  #
+  jenkins:
+    container_name: jenkins
+    build: ./services/jenkins
+    ports:
+      - "33333:8080"
+      - "50000:50000"
+
   minio:
     container_name: minio
     image: minio/minio:latest
