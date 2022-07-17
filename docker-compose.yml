@@ -73,16 +73,17 @@ services:
     image: redis:latest
     ports:
       - "6379:6379"
+
   #mariadb:
   #  build: "./services/mariadb"
   #  ports:
   #    - "3808:3808"
   #  restart: "always"
-  # memcached:
-  #   container_name: memcached-database
-  #   build: ./services/memcached
-  #   ports:
-  #     - "11211:11211"
+  memcached:
+    container_name: memcached-database
+    build: ./services/memcached
+    ports:
+      - "11211:11211"
   mongo:
     container_name: mongo-database
     build: ./services/mongo
@@ -126,13 +127,13 @@ services:
   #   depends_on:
   #     - prometheus
   #
-  prometheus:
-    container_name: prometheus
-    build: ./services/prometheus
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./services/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+  # prometheus:
+  #   container_name: prometheus
+  #   build: ./services/prometheus
+  #   ports:
+  #     - "9090:9090"
+  #   volumes:
+  #     - ./services/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
   grafana:
     container_name: grafana
     build: ./services/grafana
@@ -145,19 +146,19 @@ services:
       - "33333:8080"
       - "50000:50000"
 
-  minio:
-    container_name: minio
-    image: minio/minio:latest
-    restart: always
-    ports:
-     - "9000:9000"
-     - "9001:9001"
-    volumes:
-      - "minio_data:/data"
-    environment:
-      - MINIO_ROOT_USER=adminminio
-      - MINIO_ROOT_PASSWORD=adminminio
-    command: server /data --address 0.0.0.0:9000 --console-address ":9001"
+  # minio:
+  #   container_name: minio
+  #   image: minio/minio:latest
+  #   restart: always
+  #   ports:
+  #    - "9000:9000"
+  #    - "9001:9001"
+  #   volumes:
+  #     - "minio_data:/data"
+  #   environment:
+  #     - MINIO_ROOT_USER=adminminio
+  #     - MINIO_ROOT_PASSWORD=adminminio
+  #   command: server /data --address 0.0.0.0:9000 --console-address ":9001"
   kafka:
     container_name: kafka
     build: "./services/kafka"
@@ -180,6 +181,12 @@ services:
       - "2181:2181"
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+  rabbitmq:
+    container_name: rabbitmq-database
+    build: ./services/rabbitmq
+    restart: "always"
+    ports:
+      - 5672:5672
   # neo4j:
   #   image: docker.io/bitnami/neo4j:4
   #   ports:
@@ -188,6 +195,18 @@ services:
   #     - '7687:7687'
   #   volumes:
   #     - 'neo4j_data:/bitnami'
+  sonarqube:
+    build: ./services/sonarqube
+    ports:
+      - 9095:9090
+    environment:
+      - SONAR_JDBC_URL=jdbc:postgresql://postgres:5432/database
+      - SONAR_JDBC_USERNAME=user
+      - SONAR_JDBC_PASSWORD=password
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+
+
 volumes:
   minio_data:
     driver: local
@@ -208,6 +227,8 @@ volumes:
   pgadmin_data:
     driver: local
   mongodb_data:
+    driver: local
+  sonarqube_data:
     driver: local
 networks:
   default:

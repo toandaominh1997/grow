@@ -7,12 +7,12 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     cert-manager.io/issuer: "letsencrypt-prod"
 spec:
-  tls:
-    - hosts:
-      - 6ab9-14-187-105-14.ap.ngrok.io
-      secretName: 6ab9-14-187-105-14.ap.ngrok.io
+  # tls:
+  #   - hosts:
+  #     - 6ab9-14-187-105-14.ap.ngrok.io
+  #     secretName: 6ab9-14-187-105-14.ap.ngrok.io
   rules:
-    - host: 6ab9-14-187-105-14.ap.ngrok.io
+    - host: tonne.com
       http:
         paths:
           - path: /?(.*)
@@ -29,14 +29,47 @@ spec:
                 name: web
                 port:
                   number: 8080
-    # - host: web.hello-world.info
-    #   http:
-    #     paths:
-    #       - path: /?(.*)
-    #         pathType: Prefix
-    #         backend:
-    #           service:
-    #             name: fastapi-server-service
-    #             port:
-    #               number: 80
+    - host: grafana.tonne.com
+      http:
+        paths:
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service: 
+                name: grow-grafana
+                port:
+                  number: 3000
+
+    - host: redis.tonne.com
+      http:
+        paths:
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service: 
+                name: grow-redis-master
+                port:
+                  number: 6379
+
+    - host: airflow.tonne.com
+      http:
+        paths:
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service: 
+                name: grow-airflow-webserver
+                port:
+                  number: 8080
+
+    - host: k8s.tonne.com
+      http:
+        paths:
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service: 
+                name: my-jupyterhub-hub
+                port:
+                  number: 8081
 

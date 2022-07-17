@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sonarqube-ingress
+  namespace: sonarqube
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/issuer: "letsencrypt-prod"
+spec:
+  # tls:
+  #   - hosts:
+  #     - 6ab9-14-187-105-14.ap.ngrok.io
+  #     secretName: 6ab9-14-187-105-14.ap.ngrok.io
+  rules:
+    - host: sonarqube.tonne.com
+      http:
+        paths:
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service: 
+                name: sonarqube-sonarqube
+                port:
+                  number: 9000
+
