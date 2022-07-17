@@ -16,5 +16,6 @@ urlpatterns = [
     path('tiny_url', views.show_tinyurl, name = 'tiny_url'),
 
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('auth/', views.home, name = 'google')
 ]

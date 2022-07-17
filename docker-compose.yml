@@ -209,6 +209,8 @@ volumes:
     driver: local
   mongodb_data:
     driver: local
+  sonarqube_data:
+    driver: local
 networks:
   default:
     name: tonne

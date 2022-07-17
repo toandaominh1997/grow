@@ -68,3 +68,6 @@ def show_tinyurl(request):
         row = cursor.fetchall()
     print(row)
     return HttpResponse('oke')
+
+def home(request):
+    return render(request, 'polls/home.html')
