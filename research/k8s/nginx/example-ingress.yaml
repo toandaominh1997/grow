@@ -5,7 +5,8 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     kubernetes.io/ingress.class: "nginx"
-    cert-manager.io/issuer: "letsencrypt-prod"
+    # cert-manager.io/issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-passthrough: 'true'
 spec:
   # tls:
   #   - hosts:
@@ -19,9 +20,9 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: fastapi-server-service
+                name: fastapi
                 port:
-                  number: 80
+                  number: 1234
           - path: /web?(.*)
             pathType: Prefix
             backend:
@@ -36,10 +37,10 @@ spec:
             pathType: Prefix
             backend:
               service: 
-                name: grow-grafana
+                name: my-argo-cd-server
                 port:
-                  number: 3000
-
+                  number: 80
+    #
     - host: redis.tonne.com
       http:
         paths:
@@ -47,29 +48,39 @@ spec:
             pathType: Prefix
             backend:
               service: 
-                name: grow-redis-master
+                name: my-redis-master
                 port:
                   number: 6379
+    #
+    # - host: airflow.tonne.com
+    #   http:
+    #     paths:
+    #       - path: /?(.*)
+    #         pathType: Prefix
+    #         backend:
+    #           service: 
+    #             name: grow-airflow-webserver
+    #             port:
+    #               number: 8080
+    #
+    # - host: k8s.tonne.com
+    #   http:
+    #     paths:
+    #       - path: /?(.*)
+    #         pathType: Prefix
+    #         backend:
+    #           service: 
+    #             name: my-jupyterhub-hub
+    #             port:
+    #               number: 8081
 
-    - host: airflow.tonne.com
+    - host: argo.tonne.com
       http:
         paths:
           - path: /?(.*)
             pathType: Prefix
             backend:
               service: 
-                name: grow-airflow-webserver
+                name: my-argo-cd-server
                 port:
-                  number: 8080
-
-    - host: k8s.tonne.com
-      http:
-        paths:
-          - path: /?(.*)
-            pathType: Prefix
-            backend:
-              service: 
-                name: my-jupyterhub-hub
-                port:
-                  number: 8081
-
+                  name: http
