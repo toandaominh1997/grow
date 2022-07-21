@@ -4,7 +4,7 @@ class Test extends Component {
 	render() {
 		return(
 			<div>
-				<h1>Test I dont want to find girl</h1>
+				<h1>Test Ne</h1>
 			</div>
 		)
 	}
