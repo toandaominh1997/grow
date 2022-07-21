@@ -18,7 +18,7 @@ function App() {
     <div className="container">
       <Layout>
         <Router>
-          <Sider>
+          <Sider width={200}>
             <Navbar />
           </Sider>
           <Layout>
