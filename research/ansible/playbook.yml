@@ -1,0 +1,11 @@
+---
+- name: Update web servers
+  hosts: local
+
+  tasks:
+  - name: Deploy latest version of Prometheus chart inside monitoring namespace (and create it)
+    kubernetes.core.helm:
+      name: test
+      chart_ref: stable/prometheus
+      release_namespace: monitoring
+      create_namespace: true
