@@ -51,5 +51,11 @@ export const SidebarData = [
     path: '/chat',
     icon: <IoIcons.IoMdHelpCircle />,
     cName: 'nav-text'
+  },
+  {
+    title: 'About',
+    path: '/about',
+    icon: <IoIcons.IoMdAlert />,
+    cName: 'nav-text'
   }
 ];

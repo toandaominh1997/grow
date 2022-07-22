@@ -11,7 +11,6 @@ export const userReducer = (state = initialState, action) =>{
     case 'LOGIN_USER':
         return {...state, token: action.payload.token}
     default:
-        console.log("default ha")
         return state;
     }
 }

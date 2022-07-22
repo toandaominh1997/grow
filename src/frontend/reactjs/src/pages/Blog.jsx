@@ -60,7 +60,6 @@ class Blog extends Component {
   render() {
     return (
       <div className="root">
-        <h1>New Feed</h1>
         <Paper
           component="form"
           onSubmit={this.handleSearch}
@@ -77,6 +76,9 @@ class Blog extends Component {
           </IconButton>
         </Paper>
         <h1>Divider</h1>
+        <Button variant="contained" href="/blog/write">
+          Write
+        </Button>
 
         <Grid container spacing={1} direction="column" alignItems="center">
           {this.cards.map((card) => {

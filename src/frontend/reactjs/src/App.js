@@ -8,8 +8,11 @@ import SignIn from "./pages/SignIn";
 import Search from "./pages/Search";
 import TinyURL from "./pages/TinyURL";
 import Blog from "./pages/Blog";
+import BlogWrite from "./pages/blogs/Write";
 import Youtube from "./pages/Youtube";
 import Chat from "./pages/Chat";
+import About from "./pages/About";
+import FooterCpt from "./components/Footer";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import { Layout } from "antd";
@@ -45,18 +48,14 @@ class App extends Component {
                   <Route path="/test" element={<Test />}></Route>
                   <Route path="/tinyurl" element={<TinyURL />}></Route>
                   <Route path="/blog" element={<Blog />}></Route>
+                  <Route path="/blog/write" element={<BlogWrite />}></Route>
                   <Route path="/youtube" element={<Youtube />}></Route>
                   <Route path="/chat" element={<Chat />}></Route>
+                  <Route path="/about" element={<About />}></Route>
                 </Routes>
               </Content>
               <Footer>
-                <small>
-                  made by <a href="https://twitter.com/krzysu">Henry</a>, source
-                  code available on{" "}
-                  <a href="https://github.com/krzysu/reactjs-shopping-cart">
-                    github
-                  </a>
-                </small>
+                <FooterCpt />
               </Footer>
             </Layout>
           </Router>

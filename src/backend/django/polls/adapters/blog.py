@@ -12,25 +12,27 @@ producer = KafkaProducer(bootstrap_servers=['0.0.0.0:9092'],
                          value_serializer=lambda x: json.dumps(x).encode('utf-8')
                          )
 
-client = Elasticsearch("http://0.0.0.0:9200")
+es = Elasticsearch("http://0.0.0.0:9200")
 
 mongo = pymongo.MongoClient("mongodb://0.0.0.0:27017")
 dbmongo = mongo["database"]
 colmongo = dbmongo['blog']
 
 class BlogAdapter(object):
-
     def add_blog(self, id, user_id, title, image_url, description):
         Blog.objects.update_or_create(id = id, user_id=user_id, title= title, image_url = image_url, description=description, defaults = {"id": id})
-        producer.send("blog", value = {"id": id, 
-                                       "user_id": user_id, 
-                                       "title": title, 
-                                       "image_url": image_url,
-                                       "description": description
-                                       })
+        doc ={"id": id,
+               "user_id": user_id,
+               "title": title,
+               "image_url": image_url,
+               "description": description
+               }
+
+        # producer.send("blog", value = data)
+        es.index(index = "blog", id = id, document=doc)
         print("Send done producer")
 
-        return True 
+        return True
     def update_blog(self, id, user_id, title, image_url, description):
         Blog.objects.filter(id = id).update(user_id=user_id, title=title, image_url=image_url, description=description)
 
@@ -39,12 +41,12 @@ class BlogAdapter(object):
         print(response)
         return response
     def recommend_blog(self):
-        query = """ 
-        select id, 
-        user_id, 
-        title, 
-        image_url, 
-        description 
+        query = """
+        select id,
+        user_id,
+        title,
+        image_url,
+        description
         from blog
         where id != 0
         and id != 1
@@ -62,12 +64,12 @@ class BlogAdapter(object):
 
 
     def sync_es(self):
-        query = """ 
-        select id, 
+        query = """
+        select id,
         user_id,
-        title, 
-        image_url, 
-        description 
+        title,
+        image_url,
+        description
         from blog
         """
         with connection.cursor() as cursor:
