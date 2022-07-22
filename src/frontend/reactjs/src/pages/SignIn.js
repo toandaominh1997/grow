@@ -13,7 +13,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Home from "./Home";
+
+import {loginUser} from "./../actions/user";
+import {connect} from 'react-redux';
 function Copyright(props) {
 	return (
 		<Typography
@@ -33,7 +35,7 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
-const URL_BASE = "http://0.0.0.0:1234";
+const URL_BASE = "http://0.0.0.0:8001";
 
 class SignIn extends Component {
 	constructor(props) {
@@ -46,10 +48,6 @@ class SignIn extends Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		console.log({
-			email: data.get("email"),
-			password: data.get("password"),
-		});
 		const userData = {
 			email: data.get("email"),
 			password: data.get("password"),
@@ -60,12 +58,14 @@ class SignIn extends Component {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(userData),
 		};
-		const res = fetch(`${URL_BASE}/v1/api/signin`, requestOptions)
+		const res = fetch(`${URL_BASE}/v1/api/validate_user`, requestOptions)
 			.then((response) => response.json())
 			.then((data) => {
 				console.log("data", data);
-				if (data === true) {
+				if (data !=false) {
+					localStorage.setItem("token", data.jwt);
 					this.setState({ toHome: true });
+					this.props.loginUser({"token": data.jwt});
 				}
 			});
 		console.log(res);
@@ -150,4 +150,8 @@ class SignIn extends Component {
 		);
 	}
 }
-export default SignIn;
+
+const mapDispatchToProps = dispatch => ({
+	loginUser: user => dispatch(loginUser(user))
+})
+export default connect(null, mapDispatchToProps)(SignIn);
