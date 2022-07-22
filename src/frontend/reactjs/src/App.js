@@ -7,6 +7,7 @@ import SignIn from "./pages/Search";
 import Search from "./pages/Search";
 import TinyURL from "./components/TinyURL";
 import Blog from "./pages/Blog";
+import Youtube from "./pages/Youtube";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import { Layout } from "antd";
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/test" element={<Test />}></Route>
                 <Route path="/tinyurl" element={<TinyURL />}></Route>
                 <Route path="/blog" element={<Blog />}></Route>
+                <Route path="/youtube" element={<Youtube />}></Route>
               </Routes>
             </Content>
             <Footer>

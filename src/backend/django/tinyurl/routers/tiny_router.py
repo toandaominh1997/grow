@@ -9,7 +9,7 @@ from tinyurl.core.tinyadapter import TinyAdapter
 class TinyURL(BaseModel):
     alias: Optional[str] = None
     long_url: str
-    domain: Optional[str] = 'localhost:1234'
+    domain: Optional[str] = 'localhost:8001'
 
 
 router = APIRouter()

@@ -171,19 +171,19 @@ services:
   #   volumes:
   #     - "jenkins_data:/var/jenkins_home"
   #
-  # minio:
-  #   container_name: minio
-  #   image: minio/minio:latest
-  #   restart: always
-  #   ports:
-  #    - "9000:9000"
-  #    - "9001:9001"
-  #   volumes:
-  #     - "minio_data:/data"
-  #   environment:
-  #     - MINIO_ROOT_USER=adminminio
-  #     - MINIO_ROOT_PASSWORD=adminminio
-  #   command: server /data --address 0.0.0.0:9000 --console-address ":9001"
+  minio:
+    container_name: minio
+    image: minio/minio:latest
+    restart: always
+    ports:
+     - "9000:9000"
+     - "9001:9001"
+    volumes:
+      - "minio_data:/data"
+    environment:
+      - MINIO_ROOT_USER=adminminio
+      - MINIO_ROOT_PASSWORD=adminminio
+    command: server /data --address 0.0.0.0:9000 --console-address ":9001"
   # kafka:
   #   container_name: kafka
   #   build: "./services/kafka"

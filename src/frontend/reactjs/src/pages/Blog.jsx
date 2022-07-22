@@ -40,23 +40,22 @@ class Blog extends Component {
   }
   handleSearch(event) {
     event.preventDefault();
-	const data = new FormData(event.currentTarget);
+    const data = new FormData(event.currentTarget);
     let searchData = {
-        "text": data.get("search_text"),
-    }
+      text: data.get("search_text"),
+    };
     const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(searchData),
-
-      };
-      const res = fetch(`${URL_BASE}/v1/api/search`, requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("data", data);
-          this.setState({ card: 0 });
-          this.cards = data;
-        });
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(searchData),
+    };
+    const res = fetch(`${URL_BASE}/v1/api/search`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data", data);
+        this.setState({ card: 0 });
+        this.cards = data;
+      });
   }
   render() {
     return (

@@ -24,6 +24,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from polls.routers import questions_router, movie_router, blog_router
 from tinyurl.routers import tiny_router
+from youtube.routers import video_router
 
 fastapp = FastAPI()
 fastapp.add_middleware(
@@ -39,6 +40,8 @@ fastapp.include_router(movie_router.router, tags = ['movie'])
 fastapp.include_router(blog_router.router, tags = ['blog'], prefix = "/v1/api")
 
 fastapp.include_router(tiny_router.router, tags = ['TinyApp'])
+
+fastapp.include_router(video_router.router, tags = ['YoutubeApp'])
 MOUNT_DJANGO_APP = True
 if MOUNT_DJANGO_APP:
     fastapp.mount("/django", application)
