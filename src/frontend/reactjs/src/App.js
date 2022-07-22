@@ -9,6 +9,7 @@ import Search from "./pages/Search";
 import TinyURL from "./pages/TinyURL";
 import Blog from "./pages/Blog";
 import Youtube from "./pages/Youtube";
+import Chat from "./pages/Chat";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import { Layout } from "antd";
@@ -45,6 +46,7 @@ class App extends Component {
                   <Route path="/tinyurl" element={<TinyURL />}></Route>
                   <Route path="/blog" element={<Blog />}></Route>
                   <Route path="/youtube" element={<Youtube />}></Route>
+                  <Route path="/chat" element={<Chat />}></Route>
                 </Routes>
               </Content>
               <Footer>

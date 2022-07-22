@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chatscope/chat-ui-kit-react": "^1.9.7",
+    "@chatscope/chat-ui-kit-styles": "^1.2.3",
+    "@chatscope/use-chat": "^1.4.1",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.6.1",
@@ -13,6 +16,7 @@
     "antd": "^4.21.3",
     "next": "^12.1.5",
     "react": "^18.2.0",
+    "react-chat-engine": "^1.11.23",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-player": "^2.10.1",

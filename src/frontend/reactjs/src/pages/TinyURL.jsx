@@ -1,6 +1,8 @@
 import React, { Component, useState, createContext, useContext } from "react";
 import "./TinyURL.css";
 import { Input, Button, Form } from "antd";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 import { Col, Row } from "antd";
 import { Select } from "antd";
 const { Option } = Select;
@@ -20,7 +22,7 @@ class TinyURL extends Component {
     };
     this.makeTinyURL = this.makeTinyURL.bind(this);
   }
-  makeTinyURL(values){
+  makeTinyURL(values) {
     console.log(values.long_url, values.alias);
     let urlData = {
       long_url: values.long_url,
@@ -38,11 +40,12 @@ class TinyURL extends Component {
         console.log("setTinyURL", data);
         this.setState({ tinyurl: data });
       });
-  };
+  }
 
   render() {
     return (
       <div>
+        <Grid spacing={1} sx ={{p: "50px 100px"}}>
         <Form name="tinyurl" onFinish={(values) => this.makeTinyURL(values)}>
           <Form.Item label="URL" name="long_url">
             <Input size="large" />
@@ -52,28 +55,15 @@ class TinyURL extends Component {
           </Form.Item>
           <Form.Item>
             <Button size="large" type="primary" htmlType="submit">
-              MakeTinyURL
+              Make TinyURL!
             </Button>
           </Form.Item>
         </Form>
-        <h2>{this.state.tinyurl}</h2>
-		<a href={this.state.tinyurl}>tinyurl</a>
+
+        <a href={this.state.tinyurl}>{this.state.tinyurl}</a>
+        </Grid>
+        
       </div>
-      // 	<div>
-      //   <Form name="tinyurl" onFinish={(values) => this.makeTinyURL(values)}>
-      //     <Form.Item label="URL" name = "long_url">
-      //       <Input size="large"/>
-      //     </Form.Item>
-      // 	<Form.Item label="Alias" name = "alias">
-      //       <Input size="large"/>
-      //     </Form.Item>
-      //     <Form.Item>
-      //       <Button size="large" type="primary" htmlType="submit">
-      //         MakeTinyURL
-      //       </Button>
-      //     </Form.Item>
-      // 	</Form>
-      // 	</div>
     );
   }
 }

@@ -6,3 +6,6 @@ class User(models.Model):
     password = models.CharField(max_length=256)
     name = models.CharField(max_length=256, null=True)
     address = models.CharField(max_length=256, null = True)
+    jwt = models.CharField(max_length=256, null = True)
+    class Meta:
+        db_table = "user"
