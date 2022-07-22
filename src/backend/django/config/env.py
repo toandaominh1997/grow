@@ -3,7 +3,6 @@ from dotenv import dotenv_values
 
 def load_env():
     config = dotenv_values("config/env")
-    print("config: ", config)
     if config['dev']:
         config = {
             **os.environ,

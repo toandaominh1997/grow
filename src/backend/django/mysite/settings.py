@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'useraccount.apps.UseraccountConfig',
     'youtube.apps.YoutubeConfig',
     'tinyurl.apps.TinyurlConfig',
     'polls.apps.PollsConfig',
