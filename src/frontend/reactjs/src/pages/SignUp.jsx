@@ -13,8 +13,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
 
 import { loginUser } from "./../actions/user";
 import { connect } from "react-redux";
@@ -26,8 +24,7 @@ class SignIn extends Component {
     super(props);
     this.theme = createTheme();
     this.state = {
-      toHome: false,
-      signin: 0,
+      toSignin: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -44,32 +41,21 @@ class SignIn extends Component {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userData),
     };
-    const res = fetch(`${URL_BASE}/v1/api/validate_user`, requestOptions)
+    const res = fetch(`${URL_BASE}/v1/api/add_user`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log("data", data);
         if (data != false) {
           localStorage.setItem("token", data.jwt);
-          this.setState({ toHome: true, signin: 1 });
+          this.setState({ toSignin: true });
           this.props.loginUser({ token: data.jwt });
-        } else {
-          this.setState({ signin: -1 });
         }
       });
     console.log(res);
   }
   render() {
-    if (this.state.toHome) {
-      return <Navigate replace to="/" />;
-    }
-
-    if (this.state.signin === -1) {
-      return (
-        <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          This is an error alert — <strong>check it out!</strong>
-        </Alert>
-      );
+    if (this.state.toSignin) {
+      return <Navigate replace to="/signin" />;
     }
     return (
       <ThemeProvider theme={this.theme}>
@@ -87,7 +73,7 @@ class SignIn extends Component {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign In
+              Sign up
             </Typography>
             <Box
               component="form"
@@ -125,20 +111,8 @@ class SignIn extends Component {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                Sign Up
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="/signin/signup" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
             </Box>
           </Box>
         </Container>

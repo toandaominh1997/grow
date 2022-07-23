@@ -58,13 +58,13 @@ class AddProduct extends Component {
       .then((response) => response.json())
       .then((data) => {
         console.log("data", data);
-		this.setState({toEscom: true});
+		this.setState({toEcom: true});
       });
   }
 
   render() {
 	if (this.state.toEcom) {
-		return <Navigate replace to="/blog" />;
+		return <Navigate replace to="/ecom" />;
 	}
     return (
       <ThemeProvider theme={this.theme}>

@@ -13,7 +13,6 @@ class EcomAdapter(object):
         res = Product.objects.all()
         data = []
         for i, d in enumerate(res):
-            print("title: ", d.id)
 
             doc = {
                     "id": d.id,

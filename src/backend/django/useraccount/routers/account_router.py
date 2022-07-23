@@ -15,7 +15,7 @@ class User(BaseModel):
 def  hello():
     return "Heloo"
 @router.post("/add_user")
-def validate_user(user: User):
+def add_user(user: User):
     return adapter.add_user(email = user.email, password = user.password)
 @router.post("/validate_user")
 def validate_user(user: User):

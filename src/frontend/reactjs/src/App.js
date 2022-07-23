@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Test from "./pages/Test";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import Search from "./pages/Search";
 import TinyURL from "./pages/TinyURL";
 import Blog from "./pages/Blog";
@@ -48,6 +49,7 @@ class App extends Component {
                 <Routes>
                   <Route extra path="/" element={<Home />}></Route>
                   <Route path="/signin" element={<SignIn />}></Route>
+                  <Route path="/signin/signup" element={<SignUp />}></Route>
                   <Route path="/search" element={<Search />}></Route>
                   <Route path="/test" element={<Test />}></Route>
                   <Route path="/tinyurl" element={<TinyURL />}></Route>
