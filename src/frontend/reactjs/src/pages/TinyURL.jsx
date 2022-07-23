@@ -10,9 +10,6 @@ const { Option } = Select;
 const URLContext = createContext();
 
 const URL_BASE = "http://0.0.0.0:8001";
-const handleChange = (value) => {
-  console.log(`selected ${value}`);
-};
 
 class TinyURL extends Component {
   constructor(props) {

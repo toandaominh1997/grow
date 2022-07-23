@@ -11,58 +11,91 @@ import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 
+const URL_BASE = "http://0.0.0.0:8001";
 class EcomHome extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      cards: null,
+    };
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+  componentDidMount() {
+    this.fetchCard();
+  }
+  fetchCard() {
+    const requestOptions = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    };
+    const res = fetch(`${URL_BASE}/v1/api/ecom/get_product`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data", data);
+        this.cards = data;
+        this.setState({ cards: data });
+      });
+  }
+
+  handleSearch(event) {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const searchData = {
+      text: data.get("search_text"),
+    };
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(searchData),
+    };
+    const res = fetch(`${URL_BASE}/v1/api/ecom/search_product`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data", data);
+        this.cards = data;
+        this.setState({ cards: data });
+      });
   }
 
   cards = [
     {
-        "title": "Tonne",
-        "image_url": "https://ftsdlskits.com/wp-content/uploads/2019/07/barcelona-logo-300x300.png",
-        "description": "The description"
+      id: 0,
+      title: "Tonne",
+      image_url:
+        "https://ftsdlskits.com/wp-content/uploads/2019/07/barcelona-logo-300x300.png",
+      description: "The description",
     },
     {
-        "title": "Elastic Search",
-        "image_url": "https://it.amid.com/wp-content/uploads/2018/11/elastic-logo-V-full-color.png",
-        "description": "The description"
+      id: 1,
+      title: "Elastic Search",
+      image_url:
+        "https://it.amid.com/wp-content/uploads/2018/11/elastic-logo-V-full-color.png",
+      description: "The description",
     },
     {
-        "title": "MeliSearch",
-        "image_url": "https://i.pinimg.com/736x/04/43/8a/04438a69ce2fe19faf3818e2a16fef2f.jpg",
-        "description": "The description"
+      id: 2,
+      title: "MeliSearch",
+      image_url:
+        "https://i.pinimg.com/736x/04/43/8a/04438a69ce2fe19faf3818e2a16fef2f.jpg",
+      description: "The description",
     },
     {
-        "title": "Django",
-        "image_url": "https://i.pinimg.com/736x/04/43/8a/04438a69ce2fe19faf3818e2a16fef2f.jpg",
-        "description": "The description"
-    },
-    {
-        "title": "Django",
-        "image_url": "https://i.pinimg.com/736x/04/43/8a/04438a69ce2fe19faf3818e2a16fef2f.jpg",
-        "description": "The description"
-    },
-    {
-        "title": "Django",
-        "image_url": "https://i.pinimg.com/736x/04/43/8a/04438a69ce2fe19faf3818e2a16fef2f.jpg",
-        "description": "The description"
-    },
-    {
-        "title": "Django",
-        "image_url": "https://i.pinimg.com/736x/04/43/8a/04438a69ce2fe19faf3818e2a16fef2f.jpg",
-        "description": "The description"
-    },
-    {
-        "title": "Django",
-        "image_url": "https://i.pinimg.com/736x/04/43/8a/04438a69ce2fe19faf3818e2a16fef2f.jpg",
-        "description": "The description"
+      id: 3,
+      title: "Django",
+      image_url:
+        "https://i.pinimg.com/736x/04/43/8a/04438a69ce2fe19faf3818e2a16fef2f.jpg",
+      description: "The description",
     },
   ];
 
   render() {
     return (
       <div className="root">
-        <Paper sx ={{p: "10px 10px", alighItems: "center"}}>
+        <Paper
+          component="form"
+          onSubmit={this.handleSearch}
+          sx={{ p: "4px 6px", display: "flex", alignItems: "center" }}
+        >
           <InputBase
             sx={{ ml: 1, flex: 1 }}
             placeholder="search"
@@ -73,14 +106,20 @@ class EcomHome extends Component {
             <SearchIcon />
           </IconButton>
         </Paper>
-        <Button variant="contained" href="/ecom/addproduct">Add</Button>
-        
-        <Grid container spacing={{ xs: 2, md: 0.5 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        <Button variant="contained" href="/ecom/addproduct">
+          Add
+        </Button>
+
+        <Grid
+          container
+          spacing={{ xs: 2, md: 0.5 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
           {this.cards.map((card) => {
-            const { title, image_url, description } = card;
+            const { id, title, image_url, description } = card;
             return (
-              <Grid item xs={2} sm={5} md={2}>
-                <Card >
+              <Grid item xs={2} sm={5} md={2} key={id}>
+                <Card>
                   <CardMedia
                     component="img"
                     height="140"
