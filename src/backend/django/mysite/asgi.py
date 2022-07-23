@@ -22,7 +22,11 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
-from polls.routers import questions_router, tinyurl_router, movie_router, blog_router
+from polls.routers import questions_router, movie_router, blog_router
+from tinyurl.routers import tiny_router
+from youtube.routers import video_router
+from useraccount.routers import account_router
+from ecom.routers import ecom_router
 
 fastapp = FastAPI()
 fastapp.add_middleware(
@@ -34,9 +38,16 @@ fastapp.add_middleware(
 )
 
 fastapp.include_router(questions_router.router, tags=["questions"], prefix = "/question")
-fastapp.include_router(tinyurl_router.router, tags=["tinyurl"], prefix = "/tinyurl")
 fastapp.include_router(movie_router.router, tags = ['movie'])
 fastapp.include_router(blog_router.router, tags = ['blog'], prefix = "/v1/api")
+
+fastapp.include_router(tiny_router.router, tags = ['TinyApp'])
+
+fastapp.include_router(video_router.router, tags = ['YoutubeApp'])
+
+fastapp.include_router(account_router.router, tags = ['User Profiles'], prefix = "/v1/api")
+
+fastapp.include_router(ecom_router.router, tags = ['Ecom'], prefix = "/v1/api/ecom")
 
 MOUNT_DJANGO_APP = True
 if MOUNT_DJANGO_APP:

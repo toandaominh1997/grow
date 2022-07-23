@@ -18,11 +18,11 @@ class Choice(models.Model):
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
 
-class TinyURL(models.Model):
-    url = models.CharField(max_length=200)
-    alias = models.CharField(max_length=100)
-    class Meta:
-        db_table = 'tinyurl'
+# class TinyURL(models.Model):
+#     url = models.CharField(max_length=200)
+#     alias = models.CharField(max_length=100)
+#     class Meta:
+#         db_table = 'tinyurl'
 
 
 class Movie(models.Model):

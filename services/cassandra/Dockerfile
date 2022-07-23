@@ -1,3 +1,2 @@
-FROM cassandra:latest
+FROM docker.io/bitnami/cassandra:latest
 
-EXPOSE 7000
