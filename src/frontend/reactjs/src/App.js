@@ -13,6 +13,10 @@ import Youtube from "./pages/Youtube";
 import Chat from "./pages/Chat";
 import About from "./pages/About";
 import FooterCpt from "./components/Footer";
+import EcomHome from "./pages/ecom/EcomHome"; 
+import AddProduct from "./pages/ecom/AddProduct";
+
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import { Layout } from "antd";
@@ -52,6 +56,9 @@ class App extends Component {
                   <Route path="/youtube" element={<Youtube />}></Route>
                   <Route path="/chat" element={<Chat />}></Route>
                   <Route path="/about" element={<About />}></Route>
+                  <Route path="/ecom" element={<EcomHome />}></Route>
+                  <Route path="/ecom/addproduct" element={<AddProduct />}></Route>
+
                 </Routes>
               </Content>
               <Footer>

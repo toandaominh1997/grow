@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'ecom.apps.EcomConfig',
     'useraccount.apps.UseraccountConfig',
     'youtube.apps.YoutubeConfig',
     'tinyurl.apps.TinyurlConfig',

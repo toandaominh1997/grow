@@ -80,11 +80,11 @@ class Blog extends Component {
           Write
         </Button>
 
-        <Grid container spacing={1} direction="column" alignItems="center">
+        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           {this.cards.map((card) => {
             const { user_id, title, image_url, description } = card;
             return (
-              <Grid item>
+              <Grid item xs={2} sm={4} md={4}>
                 <Card sx={{ minWidth: 768 }}>
                   <CardMedia
                     component="img"
