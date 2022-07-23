@@ -8,7 +8,6 @@ class EcomAdapter(object):
         pass
     def add_product(self, title, description, image_url):
         obj = Product.objects.update_or_create(title = title, description=description, image_url=image_url)
-        print(obj)
         return True
     def get_product(self):
         res = Product.objects.all()
