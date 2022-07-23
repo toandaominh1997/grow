@@ -31,6 +31,7 @@ class App extends Component {
     super(props);
   }
   componentDidMount() {
+    document.title = "Grow"
     if (localStorage.getItem("token") != null) {
       this.props.loginUser({ token: localStorage.getItem("token") });
     }
