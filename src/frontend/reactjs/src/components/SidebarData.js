@@ -53,15 +53,16 @@ export const SidebarData = [
     cName: 'nav-text'
   },
   {
+    title: 'Ecom',
+    path: '/ecom',
+    icon: <IoIcons.IoMdAlert />,
+    cName: 'nav-text'
+  },
+  {
     title: 'About',
     path: '/about',
     icon: <IoIcons.IoMdAlert />,
     cName: 'nav-text'
   },
-  {
-    title: 'Ecom',
-    path: '/ecom',
-    icon: <IoIcons.IoMdAlert />,
-    cName: 'nav-text'
-  }
+
 ];

@@ -18,10 +18,8 @@ class EcomHome extends Component {
     this.state = {
       cards: null,
     };
-    this.handleSearch = this.handleSearch.bind(this);
-  }
-  componentDidMount() {
     this.fetchCard();
+    this.handleSearch = this.handleSearch.bind(this);
   }
   fetchCard() {
     const requestOptions = {
@@ -107,7 +105,7 @@ class EcomHome extends Component {
           </IconButton>
         </Paper>
         <Button variant="contained" href="/ecom/addproduct">
-          Add
+          Add Product
         </Button>
 
         <Grid
