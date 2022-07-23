@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
-from .models import Question, TinyURL
+from .models import Question
 from django.template import loader
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets

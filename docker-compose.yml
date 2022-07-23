@@ -83,13 +83,13 @@ services:
   #   build: ./services/memcached
   #   ports:
   #     - "11211:11211"
-  # mongo:
-  #   container_name: mongo-database
-  #   build: ./services/mongo
-  #   ports:
-  #     - "27017:27017"
-  #   volumes:
-  #     - 'mongodb_data:/bitnami/mongodb'
+  mongo:
+    container_name: mongo-database
+    build: ./services/mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - 'mongodb_data:/bitnami/mongodb'
 
   # couchdb:
   #   container_name: couchdb-database
@@ -116,16 +116,16 @@ services:
       - CASSANDRA_PASSWORD_SEEDER=yes
       - CASSANDRA_PASSWORD=cassandra
   # Elastic Stack
-  # elasticsearch:
-  #   build: ./services/elasticsearch
-  #   ports:
-  #     - "9200:9200"
-  #     - "9300:9300"
-  #   volumes:
-  #     - 'elasticsearch_data:/bitnami/elasticsearch/data'
-  #   environment:
-  #     - xpack.security.enabled=false
-  #     - discovery.type=single-node
+  elasticsearch:
+    build: ./services/elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - 'elasticsearch_data:/bitnami/elasticsearch/data'
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
   # logstash:
   #   build: ./services/logstash
   #   ports:
@@ -171,19 +171,19 @@ services:
   #   volumes:
   #     - "jenkins_data:/var/jenkins_home"
   #
-  # minio:
-  #   container_name: minio
-  #   image: minio/minio:latest
-  #   restart: always
-  #   ports:
-  #    - "9000:9000"
-  #    - "9001:9001"
-  #   volumes:
-  #     - "minio_data:/data"
-  #   environment:
-  #     - MINIO_ROOT_USER=adminminio
-  #     - MINIO_ROOT_PASSWORD=adminminio
-  #   command: server /data --address 0.0.0.0:9000 --console-address ":9001"
+  minio:
+    container_name: minio
+    image: minio/minio:latest
+    restart: always
+    ports:
+     - "9000:9000"
+     - "9001:9001"
+    volumes:
+      - "minio_data:/data"
+    environment:
+      - MINIO_ROOT_USER=adminminio
+      - MINIO_ROOT_PASSWORD=adminminio
+    command: server /data --address 0.0.0.0:9000 --console-address ":9001"
   # kafka:
   #   container_name: kafka
   #   build: "./services/kafka"
