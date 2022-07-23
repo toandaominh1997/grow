@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
+import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 
@@ -24,25 +25,25 @@ class AddProduct extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // const postData = {
-    //     "title": data.get("title"),
-    //     "description": data.get("description"),
-    //     "image": this.state["image"]
-    // }
-    // console.log(postData);
-    const formdata = new FormData();
+    const data = new FormData(event.currentTarget);
+    const postData = {
+        "title": data.get("title"),
+        "description": data.get("description"),
+        "image_url": data.get("image_url"),
+    }
+    console.log(postData);
+    // const formdata = new FormData();
     // formdata.append("title", event.target.title.value);
     // formdata.append("description", event.target.description.value);
-    console.log("image name: ", this.state["image"].name);
+    // console.log("image name: ", this.state["image"].name);
     
-    console.log("formdata", event.target.title.value)
-    console.log("formdata: ", formdata);
-    formdata.append("file", this.state.image, this.state.image.name);
+    // console.log("formdata", event.target.title.value)
+    // console.log("formdata: ", formdata);
+    // formdata.append("file", this.state.image, this.state.image.name);
     const requestOptions = {
         method: "POST",
         headers: { 'content-type': 'multipart/form-data' },
-        body: formdata,
+        body: JSON.stringify(postData),
       };
       const res = fetch(`${URL_BASE}/v1/api/ecom/add_product`, requestOptions)
         .then(
@@ -65,11 +66,12 @@ class AddProduct extends Component {
         onSubmit={this.handleSubmit}
         sx={{ p: "4px 6px", display: "flex", alignItems: "center" }}
       >
-          <TextField id="outlined-name" label="Title" name="title" />
-          <Button variant="contained" component="label">
+          <Input id="outlined-name" label="Title" name="title" />
+          <Input name="image_url" />
+          {/* <Button variant="contained" component="label">
             Upload Image
             <input hidden accept="image/*"  type="file" onChange={this.handleImageChange} />
-          </Button>
+          </Button> */}
           <TextareaAutosize
             aria-label="minimum height"
             minRows={5}
@@ -78,7 +80,7 @@ class AddProduct extends Component {
             style={{ width: 500 }}
           />
 
-          <Button variant="contained" component="label">
+          <Button type="submit" variant="contained" component="label">
             Submit
           </Button>
       </Paper>
